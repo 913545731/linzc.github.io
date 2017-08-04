@@ -8,22 +8,22 @@
   <link rel="dns-prefetch" href="http://linzhenc.github.io">
   <title>linzc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="linux安装consul(集群)前言：consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。 consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们">
+  <meta name="description" content="#前言：consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。 consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们下面将对四台机器进行consul">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linzc的博客">
-<meta property="og:url" content="http://linzhenc.github.io/2017/08/03/linux安装consul（集群）/index.html">
+<meta property="og:url" content="http://linzhenc.github.io/2017/08/04/test/index.html">
 <meta property="og:site_name" content="linzc的博客">
-<meta property="og:description" content="linux安装consul(集群)前言：consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。 consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们">
+<meta property="og:description" content="#前言：consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。 consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们下面将对四台机器进行consul">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://tonybai.com/wp-content/uploads/consul-arch.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0320/150400_q4KB_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0320/150152_O7Ph_3226688.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/866881/201604/866881-20160413144054816-698745676.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0320/151013_ZDQo_3226688.png">
-<meta property="og:updated_time" content="2017-08-03T05:51:15.391Z">
+<meta property="og:updated_time" content="2017-08-04T08:36:51.443Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linzc的博客">
-<meta name="twitter:description" content="linux安装consul(集群)前言：consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。 consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们">
+<meta name="twitter:description" content="#前言：consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。 consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们下面将对四台机器进行consul">
 <meta name="twitter:image" content="http://tonybai.com/wp-content/uploads/consul-arch.png">
   
     <link rel="alternative" href="/atom.xml" title="linzc的博客" type="application/atom+xml">
@@ -150,12 +150,12 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-linux安装consul（集群）" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-test" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="linux安装consul-集群"><a href="#linux安装consul-集群" class="headerlink" title="linux安装consul(集群)"></a>linux安装consul(集群)</h1><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。</p>
+        <h1 id=""><a href="#" class="headerlink" title="#"></a>#</h1><h2 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h2><p>consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。</p>
 <p>consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们下面将对四台机器进行consul集群操作，具体分配为三台server+一台Client的模式，即满足最少三台server的要求。三台server模式，如果leader挂掉其他两台机器会自动推举新的leader出来，如果两台机器部署server，其中一台挂掉，另外一台无法推举新的leader，也会导致集群down掉。</p>
 <p>consul集群架构图如下：</p>
 <p><img src="http://tonybai.com/wp-content/uploads/consul-arch.png" alt=""></p>
@@ -326,7 +326,7 @@ bootstrap-expect：在一个datacenter中期望提供的server节点数目，当
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://linzhenc.github.io/2017/08/03/linux安装consul（集群）/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://linzhenc.github.io/2017/08/04/test/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -340,15 +340,11 @@ bootstrap-expect：在一个datacenter中期望提供的server节点数目，当
   
 <nav id="article-nav">
   
-    <a href="/2017/08/04/test/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
   
+    <a href="/2017/08/03/linux安装consul（集群）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
