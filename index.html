@@ -167,7 +167,6 @@
       
         <blockquote>
 <p>consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。</p>
-</blockquote>
 <p>consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们下面将对四台机器进行consul集群操作，具体分配为三台server+一台Client的模式，即满足最少三台server的要求。三台server模式，如果leader挂掉其他两台机器会自动推举新的leader出来，如果两台机器部署server，其中一台挂掉，另外一台无法推举新的leader，也会导致集群down掉。<br>
         
       
