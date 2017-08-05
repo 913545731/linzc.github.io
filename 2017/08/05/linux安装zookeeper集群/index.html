@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://linzhenc.github.io">
   <title>linux安装zookeeper集群 | linzc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="&amp;gt;zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。">
+  <meta name="description" content="zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。">
 <meta name="keywords" content="linux,zookeeper">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux安装zookeeper集群">
 <meta property="og:url" content="http://linzhenc.github.io/2017/08/05/linux安装zookeeper集群/index.html">
 <meta property="og:site_name" content="linzc的博客">
-<meta property="og:description" content="&amp;gt;zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。">
+<meta property="og:description" content="zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0224/103926_7a2K_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0224/104043_p7Du_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/171843_s5qh_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0224/103739_KedO_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0224/104218_FWmv_3226688.png">
-<meta property="og:updated_time" content="2017-08-05T14:05:44.975Z">
+<meta property="og:updated_time" content="2017-08-05T14:10:41.404Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux安装zookeeper集群">
-<meta name="twitter:description" content="&amp;gt;zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。">
+<meta name="twitter:description" content="zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。">
 <meta name="twitter:image" content="https://static.oschina.net/uploads/space/2017/0224/103926_7a2K_3226688.png">
   
     <link rel="alternative" href="/atom.xml" title="linzc的博客" type="application/atom+xml">
@@ -171,17 +171,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>&gt;<br>zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。<br><a id="more"></a></p>
+        <blockquote>
+<p>zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。</p>
+</blockquote>
+<a id="more"></a>
 <h2 id="zookeeper"><a href="#zookeeper" class="headerlink" title="-zookeeper"></a>-zookeeper</h2><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p> -linux服务器一台<br> -保证电脑中已经存在JDK，没有请先安装jdk</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="-安装"></a>-安装</h2><p> 1、创建 /usr/local/services/zookeeper 文件夹：</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="-安装"></a>-安装</h2><p>创建 /usr/local/services/zookeeper 文件夹：</p>
 <pre><code>#mkdir -p /usr/local/services/zookeeper
-</code></pre><p>2、进入到 /usr/local/services/zookeeper 目录中：</p>
-<h1 id="cd-usr-local-services-zookeeper"><a href="#cd-usr-local-services-zookeeper" class="headerlink" title="cd /usr/local/services/zookeeper"></a>cd /usr/local/services/zookeeper</h1><p>3、下载 zookeeper-3.4.9.tar.gz：</p>
+</code></pre><p>进入到 /usr/local/services/zookeeper 目录中：</p>
+<pre><code># cd /usr/local/services/zookeeper
+</code></pre><p>下载 zookeeper-3.4.9.tar.gz：</p>
 <pre><code># wget https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz
-</code></pre><p>4、解压缩 zookeeper-3.4.9.tar.gz：</p>
-<h1 id="tar-zxvf-zookeeper-3-4-9-tar-gz"><a href="#tar-zxvf-zookeeper-3-4-9-tar-gz" class="headerlink" title="tar -zxvf zookeeper-3.4.9.tar.gz"></a>tar -zxvf zookeeper-3.4.9.tar.gz</h1><h2 id="集群配置"><a href="#集群配置" class="headerlink" title="-集群配置"></a>-集群配置</h2><p>5、进入到 /usr/local/services/zookeeper/zookeeper-3.4.9/conf 目录中：</p>
-<h1 id="cd-zookeeper-3-4-9-conf"><a href="#cd-zookeeper-3-4-9-conf" class="headerlink" title="cd zookeeper-3.4.9/conf/"></a>cd zookeeper-3.4.9/conf/</h1><p>6、复制 zoo_sample.cfg 文件的并命名为为 zoo.cfg：</p>
-<h1 id="cp-zoo-sample-cfg-zoo-cfg"><a href="#cp-zoo-sample-cfg-zoo-cfg" class="headerlink" title="cp zoo_sample.cfg zoo.cfg"></a>cp zoo_sample.cfg zoo.cfg</h1><h3 id="zoo-cfg"><a href="#zoo-cfg" class="headerlink" title="-zoo.cfg"></a>-zoo.cfg</h3><p>7、用 vi命令（vi zoo.cfg） 打开 zoo.cfg 文件并修改其内容为如下：</p>
+</code></pre><p>解压缩 zookeeper-3.4.9.tar.gz：</p>
+<pre><code># tar -zxvf zookeeper-3.4.9.tar.gz
+</code></pre><h2 id="集群配置"><a href="#集群配置" class="headerlink" title="-集群配置"></a>-集群配置</h2><p>进入到 /usr/local/services/zookeeper/zookeeper-3.4.9/conf 目录中：</p>
+<pre><code># cd zookeeper-3.4.9/conf/
+</code></pre><p>复制 zoo_sample.cfg 文件的并命名为为 zoo.cfg：</p>
+<pre><code>#  cp zoo_sample.cfg zoo.cfg
+</code></pre><h3 id="zoo-cfg"><a href="#zoo-cfg" class="headerlink" title="-zoo.cfg"></a>-zoo.cfg</h3><p>用 vi命令（vi zoo.cfg） 打开 zoo.cfg 文件并修改其内容为如下：</p>
 <pre><code># The number of milliseconds of each tick
 
 # zookeeper 定义的基准时间间隔，单位：毫秒
@@ -226,10 +233,10 @@ server.3=192.168.40.141:2883:3883
 # Purge task interval in hours
 # Set to &quot;0&quot; to disable auto purge feature
 #autopurge.purgeInterval=1
-</code></pre><p>8、保存并关闭 zoo.cfg 文件:</p>
-<p>9、进入到 /usr/local/services/zookeeper/zookeeper-3.4.9/bin 目录中：</p>
+</code></pre><p>保存并关闭 zoo.cfg 文件:</p>
+<p>进入到 /usr/local/services/zookeeper/zookeeper-3.4.9/bin 目录中：</p>
 <pre><code>#cd  /usr/local/services/zookeeper/zookeeper-3.4.9/bin
-</code></pre><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="-配置环境变量"></a>-配置环境变量</h3><p>10、配置环境变量：用 vi 打开 /etc/ 目录下的配置文件 profile：</p>
+</code></pre><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="-配置环境变量"></a>-配置环境变量</h3><p>配置环境变量：用 vi 打开 /etc/ 目录下的配置文件 profile：</p>
 <pre><code>  #  vi /etc/profile
 并在其尾部追加如下内容：
 
@@ -240,7 +247,7 @@ export PATH=$ZOOKEEPER_HOME/bin:$PATH
 export PATH
 
 # idea - zookeeper-3.4.9 config start - 2016-09-08
-</code></pre><p>11、使 /etc/ 目录下的 profile 文件即可生效：</p>
+</code></pre><p>使 /etc/ 目录下的 profile 文件即可生效：</p>
 <pre><code># source /etc/profile
 </code></pre><h3 id="设置myid"><a href="#设置myid" class="headerlink" title="-设置myid"></a>-设置myid</h3><p> 设置myid</p>
 <pre><code># cd /usr/local/services/zookeeper/zookeeper-3.4.9/data
@@ -249,27 +256,27 @@ export PATH
 
 设置为 1 保存 退出
 </code></pre><p>注意：因为此处有三台集群机器，所以针对三台机器分别要设置myid，其值也分别为1 2 3</p>
-<h2 id="启动"><a href="#启动" class="headerlink" title="-启动"></a>-启动</h2><p>12、启动 zookeeper 服务（在/usr/local/services/zookeeper/zookeeper-3.4.9/bin目录下）：</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="-启动"></a>-启动</h2><p>启动 zookeeper 服务（在/usr/local/services/zookeeper/zookeeper-3.4.9/bin目录下）：</p>
 <pre><code>   # zkServer.sh start
 如打印如下信息则表明启动成功：
 ZooKeeper JMX enabled by default
 Using config: /usr/local/services/zookeeper/zookeeper-3.4.9/bin/../conf/zoo.cfg
 Starting zookeeper ... STARTED
-</code></pre><h3 id="查询zk状态"><a href="#查询zk状态" class="headerlink" title="-查询zk状态"></a>-查询zk状态</h3><p>13、查询 zookeeper 状态（在安装目录的bin之下运行命令）：</p>
+</code></pre><h3 id="查询zk状态"><a href="#查询zk状态" class="headerlink" title="-查询zk状态"></a>-查询zk状态</h3><p>查询 zookeeper 状态（在安装目录的bin之下运行命令）：</p>
 <pre><code># zkServer.sh status（可以看到当前节点是leader还是follower）
 </code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0224/103926_7a2K_3226688.png" alt=""></p>
 <p> 查询zookeeper打印日志： </p>
 <pre><code># zookeeper.out
 </code></pre><p> 带运行日志输出的启动： </p>
 <pre><code>#zkServer.sh start-foreground
-</code></pre><p>14、关闭 zookeeper 服务：</p>
+</code></pre><p>关闭 zookeeper 服务：</p>
 <pre><code>#zkServer.sh stop
 
 如打印如下信息则表明成功关闭：
 ZooKeeper JMX enabled by default
 Using config: /usr/local/services/zookeeper/zookeeper-3.4.9/bin/../conf/zoo.cfg
 Stopping zookeeper ... STOPPED
-</code></pre><p>15、重启 zookeeper 服务：</p>
+</code></pre><p>重启 zookeeper 服务：</p>
 <pre><code>#zkServer.sh restart
 
 如打印如下信息则表明重启成功：
@@ -447,7 +454,7 @@ su     - root -c /usr/local/services/zookeeper/zookeeper-3.4.9/bin/zkServer.sh s
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#zookeeper"><span class="toc-number">1.</span> <span class="toc-text">-zookeeper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">-安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-usr-local-services-zookeeper"><span class="toc-number"></span> <span class="toc-text">cd /usr/local/services/zookeeper</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-zxvf-zookeeper-3-4-9-tar-gz"><span class="toc-number"></span> <span class="toc-text">tar -zxvf zookeeper-3.4.9.tar.gz</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#集群配置"><span class="toc-number">1.</span> <span class="toc-text">-集群配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-zookeeper-3-4-9-conf"><span class="toc-number"></span> <span class="toc-text">cd zookeeper-3.4.9/conf/</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cp-zoo-sample-cfg-zoo-cfg"><span class="toc-number"></span> <span class="toc-text">cp zoo_sample.cfg zoo.cfg</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zoo-cfg"><span class="toc-number">0.1.</span> <span class="toc-text">-zoo.cfg</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置环境变量"><span class="toc-number">0.2.</span> <span class="toc-text">-配置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置myid"><span class="toc-number">0.3.</span> <span class="toc-text">-设置myid</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动"><span class="toc-number">1.</span> <span class="toc-text">-启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查询zk状态"><span class="toc-number">1.1.</span> <span class="toc-text">-查询zk状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">2.</span> <span class="toc-text">-测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">3.</span> <span class="toc-text">-注意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">4.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">4.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#zookeeper"><span class="toc-number">1.</span> <span class="toc-text">-zookeeper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">-安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群配置"><span class="toc-number">4.</span> <span class="toc-text">-集群配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zoo-cfg"><span class="toc-number">4.1.</span> <span class="toc-text">-zoo.cfg</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置环境变量"><span class="toc-number">4.2.</span> <span class="toc-text">-配置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置myid"><span class="toc-number">4.3.</span> <span class="toc-text">-设置myid</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动"><span class="toc-number">5.</span> <span class="toc-text">-启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查询zk状态"><span class="toc-number">5.1.</span> <span class="toc-text">-查询zk状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">6.</span> <span class="toc-text">-测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">7.</span> <span class="toc-text">-注意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">8.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">8.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -492,7 +499,7 @@ su     - root -c /usr/local/services/zookeeper/zookeeper-3.4.9/bin/zkServer.sh s
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
-		toc_hide_index: true,
+		toc_hide_index: false,
 		root: "/",
 		innerArchive: true,
 		showTags: true
