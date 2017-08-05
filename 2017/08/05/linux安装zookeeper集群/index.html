@@ -6,27 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linzhenc.github.io">
-  <title>linux安装activeMQ 并集群（ZooInspector+activeMQ） | linzc的博客</title>
+  <title>linux安装zookeeper集群 | linzc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
-<meta name="keywords" content="linux,activeMQ,ZooInspector">
+  <meta name="description" content="&amp;gt;zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。">
+<meta name="keywords" content="linux,zookeeper">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux安装activeMQ 并集群（ZooInspector+activeMQ）">
-<meta property="og:url" content="http://linzhenc.github.io/2017/08/05/linux安装activeMQ 并集群（ZooInspector+activeMQ）/index.html">
+<meta property="og:title" content="linux安装zookeeper集群">
+<meta property="og:url" content="http://linzhenc.github.io/2017/08/05/linux安装zookeeper集群/index.html">
 <meta property="og:site_name" content="linzc的博客">
-<meta property="og:description" content="ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
+<meta property="og:description" content="&amp;gt;zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/154058_1sBH_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/162322_2WIP_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172030_7Iht_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172041_OHqp_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172053_DqzZ_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172610_SRkD_3226688.png">
-<meta property="og:updated_time" content="2017-08-05T13:48:51.574Z">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0224/103926_7a2K_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0224/104043_p7Du_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/171843_s5qh_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0224/103739_KedO_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0224/104218_FWmv_3226688.png">
+<meta property="og:updated_time" content="2017-08-05T14:05:44.975Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux安装activeMQ 并集群（ZooInspector+activeMQ）">
-<meta name="twitter:description" content="ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
-<meta name="twitter:image" content="https://static.oschina.net/uploads/space/2017/0228/154058_1sBH_3226688.png">
+<meta name="twitter:title" content="linux安装zookeeper集群">
+<meta name="twitter:description" content="&amp;gt;zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/space/2017/0224/103926_7a2K_3226688.png">
   
     <link rel="alternative" href="/atom.xml" title="linzc的博客" type="application/atom+xml">
   
@@ -152,105 +151,160 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-linux安装activeMQ 并集群（ZooInspector+activeMQ）" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-linux安装zookeeper集群" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      linux安装activeMQ 并集群（ZooInspector+activeMQ）
+      linux安装zookeeper集群
     </h1>
   
 
         
-        <a href="/2017/08/05/linux安装activeMQ 并集群（ZooInspector+activeMQ）/" class="archive-article-date">
-  	<time datetime="2017-08-05T10:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
+        <a href="/2017/08/05/linux安装zookeeper集群/" class="archive-article-date">
+  	<time datetime="2017-08-05T11:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。</p>
-</blockquote>
-<a id="more"></a>
-<h2 id="activeMQ"><a href="#activeMQ" class="headerlink" title="-activeMQ"></a>-activeMQ</h2><p>这里我们主要说明如何搭建ActiveMQ的集群。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p>-三台虚拟机（140 141 149）</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="-安装"></a>-安装</h2><h3 id="下载"><a href="#下载" class="headerlink" title="-下载"></a>-下载</h3><pre><code># cd /usr/local/src
-# wget http://mirrors.cnnic.cn/apache//activemq/5.14.2/apache-activemq-5.14.2-bin.tar.gz  
-</code></pre><h3 id="解压"><a href="#解压" class="headerlink" title="-解压"></a>-解压</h3><pre><code># tar -zxvf apache-activemq-5.14.2-bin.tar.gz
-</code></pre><p>重命名解压包，我命名的方式是activemq+机器的ip最后一位 当然你也可以不用修改 直接apache-activemq-5.14.2</p>
-<pre><code># mv apache-activemq-5.14.2 activemq141
-</code></pre><h2 id="集群配置"><a href="#集群配置" class="headerlink" title="-集群配置"></a>-集群配置</h2><h3 id="管控台端口"><a href="#管控台端口" class="headerlink" title="-管控台端口"></a>-管控台端口</h3><p>修改activemq管控台端口，也可以不用修改，此处修改是为了即使是伪集群也可以搭建，我此处</p>
-<p>141 设置的为8161</p>
-<p>142 设置的为8162</p>
-<p>149 设置的为8163</p>
-<pre><code>#vi /usr/local/src/activemq140/conf/jetty.xml
-</code></pre><p>具体修改，如下图：<br><img src="https://static.oschina.net/uploads/space/2017/0228/154058_1sBH_3226688.png" alt=""></p>
-<h3 id="activemq-xml"><a href="#activemq-xml" class="headerlink" title="-activemq.xml"></a>-activemq.xml</h3><p>集群配置（/usr/local/src/activemq141/conf/activemq.xml配置 ）：</p>
-<pre><code># vi /usr/local/src/activemq140/conf/activemq.xml
-</code></pre><p>注意：此处集群的机器的 brokerName必须一致</p>
-<p>机器140配置：<br>    <broker xmlns="http://activemq.apache.org/schema/core" brokername="dubbomq"><br>    <persistenceadapter><br>        <replicatedleveldb directory="${activemq.data}/leveldb" replicas="3" bind="tcp://0.0.0.0:62621" zkaddress="192.168.40.140:2182,192.168.40.141:2183,192.168.40.149:2181" hostname="192.168.40.140" sync="local_disk" zkpath="/activemq/leveldb-stores"><br>    </replicatedleveldb></persistenceadapter><br>    </broker><br>机器141配置：<br>    <broker xmlns="http://activemq.apache.org/schema/core" brokername="dubbomq"><br>    <persistenceadapter><br>        <replicatedleveldb directory="${activemq.data}/leveldb" replicas="3" bind="tcp://0.0.0.0:62622" zkaddress="192.168.40.140:2182,192.168.40.141:2183,192.168.40.149:2181" hostname="192.168.40.141" sync="local_disk" zkpath="/activemq/leveldb-stores"><br>    </replicatedleveldb></persistenceadapter><br>    </broker><br>机器149配置：<br>    <broker xmlns="http://activemq.apache.org/schema/core" brokername="dubbomq"><br>    <persistenceadapter><br>        <replicatedleveldb directory="${activemq.data}/leveldb" replicas="3" bind="tcp://0.0.0.0:62623" zkaddress="192.168.40.140:2182,192.168.40.141:2183,192.168.40.149:2181" hostname="192.168.40.149" sync="local_disk" zkpath="/activemq/leveldb-stores"><br>    </replicatedleveldb></persistenceadapter><br>    </broker> </p>
-<p>启动之前需在防火墙上打开对应端口：</p>
-<h3 id="开放端口"><a href="#开放端口" class="headerlink" title="-开放端口"></a>-开放端口</h3><p>第一台机器（192.168.40.140）</p>
+        <p>&gt;<br>zookeeper现在主流的注册中心之一，在开源分布式框架dubbo和spring cloud都有使用该注册中心，但是国内的话用zookeeper，还是dubbo偏多。spring cloud有自身的两个契合度更高的注册中心。<br><a id="more"></a></p>
+<h2 id="zookeeper"><a href="#zookeeper" class="headerlink" title="-zookeeper"></a>-zookeeper</h2><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p> -linux服务器一台<br> -保证电脑中已经存在JDK，没有请先安装jdk</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="-安装"></a>-安装</h2><p> 1、创建 /usr/local/services/zookeeper 文件夹：</p>
+<pre><code>#mkdir -p /usr/local/services/zookeeper
+</code></pre><p>2、进入到 /usr/local/services/zookeeper 目录中：</p>
+<h1 id="cd-usr-local-services-zookeeper"><a href="#cd-usr-local-services-zookeeper" class="headerlink" title="cd /usr/local/services/zookeeper"></a>cd /usr/local/services/zookeeper</h1><p>3、下载 zookeeper-3.4.9.tar.gz：</p>
+<pre><code># wget https://mirrors.tuna.tsinghua.edu.cn/apache/zookeeper/zookeeper-3.4.9/zookeeper-3.4.9.tar.gz
+</code></pre><p>4、解压缩 zookeeper-3.4.9.tar.gz：</p>
+<h1 id="tar-zxvf-zookeeper-3-4-9-tar-gz"><a href="#tar-zxvf-zookeeper-3-4-9-tar-gz" class="headerlink" title="tar -zxvf zookeeper-3.4.9.tar.gz"></a>tar -zxvf zookeeper-3.4.9.tar.gz</h1><h2 id="集群配置"><a href="#集群配置" class="headerlink" title="-集群配置"></a>-集群配置</h2><p>5、进入到 /usr/local/services/zookeeper/zookeeper-3.4.9/conf 目录中：</p>
+<h1 id="cd-zookeeper-3-4-9-conf"><a href="#cd-zookeeper-3-4-9-conf" class="headerlink" title="cd zookeeper-3.4.9/conf/"></a>cd zookeeper-3.4.9/conf/</h1><p>6、复制 zoo_sample.cfg 文件的并命名为为 zoo.cfg：</p>
+<h1 id="cp-zoo-sample-cfg-zoo-cfg"><a href="#cp-zoo-sample-cfg-zoo-cfg" class="headerlink" title="cp zoo_sample.cfg zoo.cfg"></a>cp zoo_sample.cfg zoo.cfg</h1><h3 id="zoo-cfg"><a href="#zoo-cfg" class="headerlink" title="-zoo.cfg"></a>-zoo.cfg</h3><p>7、用 vi命令（vi zoo.cfg） 打开 zoo.cfg 文件并修改其内容为如下：</p>
+<pre><code># The number of milliseconds of each tick
+
+# zookeeper 定义的基准时间间隔，单位：毫秒
+tickTime=2000
+
+# The number of ticks that the initial
+# synchronization phase can take
+initLimit=10
+# The number of ticks that can pass between
+# sending a request and getting an acknowledgement
+syncLimit=5
+# the directory where the snapshot is stored.
+# do not use /tmp for storage, /tmp here is just
+# example sakes.
+# dataDir=/tmp/zookeeper
+
+# 数据文件夹
+dataDir=/usr/local/services/zookeeper/zookeeper-3.4.9/data
+
+# 日志文件夹
+dataLogDir=/usr/local/services/zookeeper/zookeeper-3.4.9/logs
+
+# the port at which the clients will connect
+# 客户端访问 zookeeper 的端口号
+clientPort=2181
+
+# the maximum number of client connections.
+# increase this if you need to handle more clients
+#maxClientCnxns=60
+</code></pre><p>   #此处集群配置三台机器的配置 都要一样</p>
+<pre><code>server.1=192.168.40.139:2881:3881
+server.2=192.168.40.140:2882:3882
+server.3=192.168.40.141:2883:3883
+#
+# Be sure to read the maintenance section of the
+# administrator guide before turning on autopurge.
+#
+# http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance
+#
+# The number of snapshots to retain in dataDir
+#autopurge.snapRetainCount=3
+# Purge task interval in hours
+# Set to &quot;0&quot; to disable auto purge feature
+#autopurge.purgeInterval=1
+</code></pre><p>8、保存并关闭 zoo.cfg 文件:</p>
+<p>9、进入到 /usr/local/services/zookeeper/zookeeper-3.4.9/bin 目录中：</p>
+<pre><code>#cd  /usr/local/services/zookeeper/zookeeper-3.4.9/bin
+</code></pre><h3 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="-配置环境变量"></a>-配置环境变量</h3><p>10、配置环境变量：用 vi 打开 /etc/ 目录下的配置文件 profile：</p>
+<pre><code>  #  vi /etc/profile
+并在其尾部追加如下内容：
+
+# idea - zookeeper-3.4.9 config start - 2016-09-08
+
+export ZOOKEEPER_HOME=/usr/local/services/zookeeper/zookeeper-3.4.9/
+export PATH=$ZOOKEEPER_HOME/bin:$PATH
+export PATH
+
+# idea - zookeeper-3.4.9 config start - 2016-09-08
+</code></pre><p>11、使 /etc/ 目录下的 profile 文件即可生效：</p>
+<pre><code># source /etc/profile
+</code></pre><h3 id="设置myid"><a href="#设置myid" class="headerlink" title="-设置myid"></a>-设置myid</h3><p> 设置myid</p>
+<pre><code># cd /usr/local/services/zookeeper/zookeeper-3.4.9/data
+
+# vi myid
+
+设置为 1 保存 退出
+</code></pre><p>注意：因为此处有三台集群机器，所以针对三台机器分别要设置myid，其值也分别为1 2 3</p>
+<h2 id="启动"><a href="#启动" class="headerlink" title="-启动"></a>-启动</h2><p>12、启动 zookeeper 服务（在/usr/local/services/zookeeper/zookeeper-3.4.9/bin目录下）：</p>
+<pre><code>   # zkServer.sh start
+如打印如下信息则表明启动成功：
+ZooKeeper JMX enabled by default
+Using config: /usr/local/services/zookeeper/zookeeper-3.4.9/bin/../conf/zoo.cfg
+Starting zookeeper ... STARTED
+</code></pre><h3 id="查询zk状态"><a href="#查询zk状态" class="headerlink" title="-查询zk状态"></a>-查询zk状态</h3><p>13、查询 zookeeper 状态（在安装目录的bin之下运行命令）：</p>
+<pre><code># zkServer.sh status（可以看到当前节点是leader还是follower）
+</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0224/103926_7a2K_3226688.png" alt=""></p>
+<p> 查询zookeeper打印日志： </p>
+<pre><code># zookeeper.out
+</code></pre><p> 带运行日志输出的启动： </p>
+<pre><code>#zkServer.sh start-foreground
+</code></pre><p>14、关闭 zookeeper 服务：</p>
+<pre><code>#zkServer.sh stop
+
+如打印如下信息则表明成功关闭：
+ZooKeeper JMX enabled by default
+Using config: /usr/local/services/zookeeper/zookeeper-3.4.9/bin/../conf/zoo.cfg
+Stopping zookeeper ... STOPPED
+</code></pre><p>15、重启 zookeeper 服务：</p>
+<pre><code>#zkServer.sh restart
+
+如打印如下信息则表明重启成功：
+ZooKeeper JMX enabled by default
+Using config: /usr/local/services/zookeeper/zookeeper-3.4.9/bin/../conf/zoo.cfg
+ZooKeeper JMX enabled by default
+Using config: /usr/local/services/zookeeper/zookeeper-3.4.9/bin/../conf/zoo.cfg
+Stopping zookeeper ... STOPPED
+ZooKeeper JMX enabled by default
+Using config: /usr/local/services/zookeeper/zookeeper-3.4.9/bin/../conf/zoo.cfg
+Starting zookeeper ... STARTED
+</code></pre><p>在防火墙打开配置的端口：</p>
+<p>编辑防火墙：</p>
 <pre><code>#vi /etc/sysconfig/iptables
 
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 8161 -j ACCEPT
-
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 62621 -j ACCEPT
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 51511 -j ACCEPT
-</code></pre><p>第一台机器（192.168.40.141）</p>
-<pre><code>#vi /etc/sysconfig/iptables
-
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 81612 -j ACCEPT
-
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 62622 -j ACCEPT
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 51512 -j ACCEPT
-</code></pre><p>第一台机器（192.168.40.149）</p>
-<pre><code>#vi /etc/sysconfig/iptables
-
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 8163 -j ACCEPT
-
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 62623 -j ACCEPT
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 51513 -j ACCEPT
-</code></pre><h2 id="启动集群"><a href="#启动集群" class="headerlink" title="-启动集群"></a>-启动集群</h2><p>再分别重启防火墙：</p>
+增加端口：
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 2183 -j ACCEPT
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 2883 -j ACCEPT
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 3883 -j ACCEPT
+</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0224/104043_p7Du_3226688.png" alt=""></p>
+<p>重启防火墙：</p>
 <pre><code># service iptables restart
-</code></pre><p>按安装顺序启动activemq：</p>
-<pre><code># /usr/local/src/activemq140/bin/activemq start
-
-# /usr/local/src/activemq141/bin/activemq start
-
-# /usr/local/src/activemq149/bin/activemq start
-</code></pre><p>监听日志：</p>
-<pre><code># tail -f /usr/local/src/activemq140/data/activemq.log
-
-# tail -f /usr/local/src/activemq141/data/activemq.log
-
-# tail -f /usr/local/src/activemq149/data/activemq.log
-</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0228/162322_2WIP_3226688.png" alt=""></p>
-<p>设置开机启动：</p>
+su     - root -c /usr/local/services/zookeeper/zookeeper-3.4.9/bin/zkServer.sh start
+</code></pre><p>为zookeeper添加开机启动：</p>
 <pre><code># vi /etc/rc.local
-su - root -c /usr/local/src/activemq140/bin/activemq start
-
-# vi /etc/rc.local
-su - root -c /usr/local/src/activemq141/bin/activemq start
-
-# vi /etc/rc.local
-su - root -c /usr/local/src/activemq149/bin/activemq start
-</code></pre><h2 id="ZooInspector监控MQ集群"><a href="#ZooInspector监控MQ集群" class="headerlink" title="-ZooInspector监控MQ集群"></a>-ZooInspector监控MQ集群</h2><p>运用ZooInspector（基于zookeeper）监控active运行状态：</p>
-<p>此处三个activemq运行的程序，可以看出我们之前部署的active集群已经推举出新的master了。</p>
-<p>其他两个从节点 只负责备份 不处理读写 只有当master挂掉以后才重新选举出master</p>
-<p><img src="https://static.oschina.net/uploads/space/2017/0228/172030_7Iht_3226688.png" alt=""></p>
-<p><img src="https://static.oschina.net/uploads/space/2017/0228/172041_OHqp_3226688.png" alt=""></p>
-<p><img src="https://static.oschina.net/uploads/space/2017/0228/172053_DqzZ_3226688.png" alt=""></p>
-<h2 id="控制台"><a href="#控制台" class="headerlink" title="-控制台"></a>-控制台</h2><p>登录控制台：账号密码为 admin/admin</p>
-<p>可以看出 我这里已经消费了的消息记录。</p>
-<p><img src="https://static.oschina.net/uploads/space/2017/0228/172610_SRkD_3226688.png" alt=""></p>
-<p>注意：</p>
-<p>在这里三个activemq集群中，挂掉一台集群可以正常运行，如果挂掉两台则不能运行了。</p>
-<p>因为activemq集群是依赖zookeeper集群的 如果zookeeper集群down掉 那么activemq集群也不能正常运行</p>
+</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0228/171843_s5qh_3226688.png" alt=""></p>
+<h2 id="测试"><a href="#测试" class="headerlink" title="-测试"></a>-测试</h2><p>利用dubbo管控台来测试zookeeper集群是否成功:</p>
+<p>dubbo.properties配置 （注意主从配置）</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0224/103739_KedO_3226688.png" alt=""></p>
+<p>然后运行管理控制台：</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0224/104218_FWmv_3226688.png" alt=""></p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="-注意"></a>-注意</h2><p>1、三台机器都要在防火墙打开对应的端口：并重启防火墙才能生效</p>
+<p>2、 增加了zookeeper的环境变量后，要 # source /etc/profile 方能生效</p>
+<p>3、centos7的防火墙不是iptables，如果你的机器找不到iptables请百度 或查看我相关文章，卸载自带的防火墙，下载iptables。</p>
+<p>4.集群安装成功，连接管控台测试的时候，dubbo管控台启动会去注册，如果zookeeper集群的机器存活数过半，则能成功启动，否则不能启动。（如果在dubbo管控台启动后，把zookeeper全部关闭，ubbo管控台也能正常使用，不会报错，因为只有启动的时候才回去检查）</p>
 <h2 id="结束语"><a href="#结束语" class="headerlink" title="-结束语"></a>-结束语</h2><p>在安装过程中可能会遇到一些这样那样的问题，如果解决不了请联系博主。</p>
 <h3 id="联系方式"><a href="#联系方式" class="headerlink" title="-联系方式"></a>-联系方式</h3><p>个人QQ: 913545731 (请注明”博客疑问”)</p>
 <p>Spring Cloud中国社区① : 415028731</p>
@@ -294,11 +348,7 @@ su - root -c /usr/local/src/activemq149/bin/activemq start
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">activeMQ</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ZooInspector</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">zookeeper</a>
         		</li>
       		
 		</ul>
@@ -354,7 +404,7 @@ su - root -c /usr/local/src/activemq149/bin/activemq start
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://linzhenc.github.io/2017/08/05/linux安装activeMQ 并集群（ZooInspector+activeMQ）/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://linzhenc.github.io/2017/08/05/linux安装zookeeper集群/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -368,18 +418,9 @@ su - root -c /usr/local/src/activemq149/bin/activemq start
   
 <nav id="article-nav">
   
-    <a href="/2017/08/05/linux安装zookeeper集群/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          linux安装zookeeper集群
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">linux安装keepalived+nginx(2) --nginx安装</div>
+    <a href="/2017/08/05/linux安装activeMQ 并集群（ZooInspector+activeMQ）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux安装activeMQ 并集群（ZooInspector+activeMQ）</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -406,7 +447,7 @@ su - root -c /usr/local/src/activemq149/bin/activemq start
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#activeMQ"><span class="toc-number">1.</span> <span class="toc-text">-activeMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">-安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载"><span class="toc-number">3.1.</span> <span class="toc-text">-下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解压"><span class="toc-number">3.2.</span> <span class="toc-text">-解压</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群配置"><span class="toc-number">4.</span> <span class="toc-text">-集群配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#管控台端口"><span class="toc-number">4.1.</span> <span class="toc-text">-管控台端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#activemq-xml"><span class="toc-number">4.2.</span> <span class="toc-text">-activemq.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开放端口"><span class="toc-number">4.3.</span> <span class="toc-text">-开放端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动集群"><span class="toc-number">5.</span> <span class="toc-text">-启动集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZooInspector监控MQ集群"><span class="toc-number">6.</span> <span class="toc-text">-ZooInspector监控MQ集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#控制台"><span class="toc-number">7.</span> <span class="toc-text">-控制台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">8.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">8.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#zookeeper"><span class="toc-number">1.</span> <span class="toc-text">-zookeeper</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">-安装</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-usr-local-services-zookeeper"><span class="toc-number"></span> <span class="toc-text">cd /usr/local/services/zookeeper</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#tar-zxvf-zookeeper-3-4-9-tar-gz"><span class="toc-number"></span> <span class="toc-text">tar -zxvf zookeeper-3.4.9.tar.gz</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#集群配置"><span class="toc-number">1.</span> <span class="toc-text">-集群配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cd-zookeeper-3-4-9-conf"><span class="toc-number"></span> <span class="toc-text">cd zookeeper-3.4.9/conf/</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#cp-zoo-sample-cfg-zoo-cfg"><span class="toc-number"></span> <span class="toc-text">cp zoo_sample.cfg zoo.cfg</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#zoo-cfg"><span class="toc-number">0.1.</span> <span class="toc-text">-zoo.cfg</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置环境变量"><span class="toc-number">0.2.</span> <span class="toc-text">-配置环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#设置myid"><span class="toc-number">0.3.</span> <span class="toc-text">-设置myid</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动"><span class="toc-number">1.</span> <span class="toc-text">-启动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查询zk状态"><span class="toc-number">1.1.</span> <span class="toc-text">-查询zk状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">2.</span> <span class="toc-text">-测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意"><span class="toc-number">3.</span> <span class="toc-text">-注意</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">4.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">4.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
