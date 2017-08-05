@@ -6,18 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linzhenc.github.io">
-  <title>Tag: nginx | linzc的博客</title>
+  <title>linux安装activeMQ 并集群（zookeeper+levelDB） | linzc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一天进步一点。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="linzc的博客">
-<meta property="og:url" content="http://linzhenc.github.io/tags/nginx/index.html">
+  <meta name="description" content="ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
+<meta name="keywords" content="linux,activeMQ,ZooInspector">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux安装activeMQ 并集群（zookeeper+levelDB）">
+<meta property="og:url" content="http://linzhenc.github.io/2017/08/05/linux安装activeMQ 并集群（zookeeper+levelDB）/index.html">
 <meta property="og:site_name" content="linzc的博客">
-<meta property="og:description" content="一天进步一点。">
+<meta property="og:description" content="ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/154058_1sBH_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/162322_2WIP_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172030_7Iht_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172041_OHqp_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172053_DqzZ_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172610_SRkD_3226688.png">
+<meta property="og:updated_time" content="2017-08-05T13:47:36.003Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linzc的博客">
-<meta name="twitter:description" content="一天进步一点。">
+<meta name="twitter:title" content="linux安装activeMQ 并集群（zookeeper+levelDB）">
+<meta name="twitter:description" content="ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/space/2017/0228/154058_1sBH_3226688.png">
   
     <link rel="alternative" href="/atom.xml" title="linzc的博客" type="application/atom+xml">
   
@@ -143,114 +152,269 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-linux安装activeMQ 并集群（zookeeper+levelDB）" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/" class="archive-article-date">
-  	<time datetime="2017-08-05T09:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/">linux安装keepalived+nginx(2) --nginx安装</a>
+    <h1 class="article-title" itemprop="name">
+      linux安装activeMQ 并集群（zookeeper+levelDB）
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/08/05/linux安装activeMQ 并集群（zookeeper+levelDB）/" class="archive-article-date">
+  	<time datetime="2017-08-05T10:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="activeMQ"><a href="#activeMQ" class="headerlink" title="-activeMQ"></a>-activeMQ</h2><p>这里我们主要说明如何搭建ActiveMQ的集群。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p>-三台虚拟机（140 141 149）</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="-安装"></a>-安装</h2><h3 id="下载"><a href="#下载" class="headerlink" title="-下载"></a>-下载</h3><pre><code># cd /usr/local/src
+# wget http://mirrors.cnnic.cn/apache//activemq/5.14.2/apache-activemq-5.14.2-bin.tar.gz  
+</code></pre><h3 id="解压"><a href="#解压" class="headerlink" title="-解压"></a>-解压</h3><pre><code># tar -zxvf apache-activemq-5.14.2-bin.tar.gz
+</code></pre><p>重命名解压包，我命名的方式是activemq+机器的ip最后一位 当然你也可以不用修改 直接apache-activemq-5.14.2</p>
+<pre><code># mv apache-activemq-5.14.2 activemq141
+</code></pre><h2 id="集群配置"><a href="#集群配置" class="headerlink" title="-集群配置"></a>-集群配置</h2><h3 id="管控台端口"><a href="#管控台端口" class="headerlink" title="-管控台端口"></a>-管控台端口</h3><p>修改activemq管控台端口，也可以不用修改，此处修改是为了即使是伪集群也可以搭建，我此处</p>
+<p>141 设置的为8161</p>
+<p>142 设置的为8162</p>
+<p>149 设置的为8163</p>
+<pre><code>#vi /usr/local/src/activemq140/conf/jetty.xml
+</code></pre><p>具体修改，如下图：<br><img src="https://static.oschina.net/uploads/space/2017/0228/154058_1sBH_3226688.png" alt=""></p>
+<h3 id="activemq-xml"><a href="#activemq-xml" class="headerlink" title="-activemq.xml"></a>-activemq.xml</h3><p>集群配置（/usr/local/src/activemq141/conf/activemq.xml配置 ）：</p>
+<pre><code># vi /usr/local/src/activemq140/conf/activemq.xml
+</code></pre><p>注意：此处集群的机器的 brokerName必须一致</p>
+<p>机器140配置：<br>    <broker xmlns="http://activemq.apache.org/schema/core" brokername="dubbomq"><br>    <persistenceadapter><br>        <replicatedleveldb directory="${activemq.data}/leveldb" replicas="3" bind="tcp://0.0.0.0:62621" zkaddress="192.168.40.140:2182,192.168.40.141:2183,192.168.40.149:2181" hostname="192.168.40.140" sync="local_disk" zkpath="/activemq/leveldb-stores"><br>    </replicatedleveldb></persistenceadapter><br>    </broker><br>机器141配置：<br>    <broker xmlns="http://activemq.apache.org/schema/core" brokername="dubbomq"><br>    <persistenceadapter><br>        <replicatedleveldb directory="${activemq.data}/leveldb" replicas="3" bind="tcp://0.0.0.0:62622" zkaddress="192.168.40.140:2182,192.168.40.141:2183,192.168.40.149:2181" hostname="192.168.40.141" sync="local_disk" zkpath="/activemq/leveldb-stores"><br>    </replicatedleveldb></persistenceadapter><br>    </broker><br>机器149配置：<br>    <broker xmlns="http://activemq.apache.org/schema/core" brokername="dubbomq"><br>    <persistenceadapter><br>        <replicatedleveldb directory="${activemq.data}/leveldb" replicas="3" bind="tcp://0.0.0.0:62623" zkaddress="192.168.40.140:2182,192.168.40.141:2183,192.168.40.149:2181" hostname="192.168.40.149" sync="local_disk" zkpath="/activemq/leveldb-stores"><br>    </replicatedleveldb></persistenceadapter><br>    </broker> </p>
+<p>启动之前需在防火墙上打开对应端口：</p>
+<h3 id="开放端口"><a href="#开放端口" class="headerlink" title="-开放端口"></a>-开放端口</h3><p>第一台机器（192.168.40.140）</p>
+<pre><code>#vi /etc/sysconfig/iptables
+
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 8161 -j ACCEPT
+
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 62621 -j ACCEPT
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 51511 -j ACCEPT
+</code></pre><p>第一台机器（192.168.40.141）</p>
+<pre><code>#vi /etc/sysconfig/iptables
+
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 81612 -j ACCEPT
+
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 62622 -j ACCEPT
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 51512 -j ACCEPT
+</code></pre><p>第一台机器（192.168.40.149）</p>
+<pre><code>#vi /etc/sysconfig/iptables
+
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 8163 -j ACCEPT
+
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 62623 -j ACCEPT
+-A INPUT -p tcp -mstate --state NEW -m tcp --dport 51513 -j ACCEPT
+</code></pre><h2 id="启动集群"><a href="#启动集群" class="headerlink" title="-启动集群"></a>-启动集群</h2><p>再分别重启防火墙：</p>
+<pre><code># service iptables restart
+</code></pre><p>按安装顺序启动activemq：</p>
+<pre><code># /usr/local/src/activemq140/bin/activemq start
+
+# /usr/local/src/activemq141/bin/activemq start
+
+# /usr/local/src/activemq149/bin/activemq start
+</code></pre><p>监听日志：</p>
+<pre><code># tail -f /usr/local/src/activemq140/data/activemq.log
+
+# tail -f /usr/local/src/activemq141/data/activemq.log
+
+# tail -f /usr/local/src/activemq149/data/activemq.log
+</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0228/162322_2WIP_3226688.png" alt=""></p>
+<p>设置开机启动：</p>
+<pre><code># vi /etc/rc.local
+su - root -c /usr/local/src/activemq140/bin/activemq start
+
+# vi /etc/rc.local
+su - root -c /usr/local/src/activemq141/bin/activemq start
+
+# vi /etc/rc.local
+su - root -c /usr/local/src/activemq149/bin/activemq start
+</code></pre><h2 id="ZooInspector监控MQ集群"><a href="#ZooInspector监控MQ集群" class="headerlink" title="-ZooInspector监控MQ集群"></a>-ZooInspector监控MQ集群</h2><p>运用ZooInspector（基于zookeeper）监控active运行状态：</p>
+<p>此处三个activemq运行的程序，可以看出我们之前部署的active集群已经推举出新的master了。</p>
+<p>其他两个从节点 只负责备份 不处理读写 只有当master挂掉以后才重新选举出master</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0228/172030_7Iht_3226688.png" alt=""></p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0228/172041_OHqp_3226688.png" alt=""></p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0228/172053_DqzZ_3226688.png" alt=""></p>
+<h2 id="控制台"><a href="#控制台" class="headerlink" title="-控制台"></a>-控制台</h2><p>登录控制台：账号密码为 admin/admin</p>
+<p>可以看出 我这里已经消费了的消息记录。</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0228/172610_SRkD_3226688.png" alt=""></p>
+<p>注意：</p>
+<p>在这里三个activemq集群中，挂掉一台集群可以正常运行，如果挂掉两台则不能运行了。</p>
+<p>因为activemq集群是依赖zookeeper集群的 如果zookeeper集群down掉 那么activemq集群也不能正常运行</p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="-结束语"></a>-结束语</h2><p>在安装过程中可能会遇到一些这样那样的问题，如果解决不了请联系博主。</p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="-联系方式"></a>-联系方式</h3><p>个人QQ: 913545731 (请注明”博客疑问”)</p>
+<p>Spring Cloud中国社区① : 415028731</p>
+<p>Spring Cloud中国社区⑤ : 36959900</p>
+<hr>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">activeMQ</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ZooInspector</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://linzhenc.github.io/2017/08/05/linux安装activeMQ 并集群（zookeeper+levelDB）/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/" class="archive-article-date">
-  	<time datetime="2017-08-05T08:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux安装keepalived+nginx(2) --nginx安装</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/">linux安装keepalived+nginx(1) --keepalived安装</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#activeMQ"><span class="toc-number">1.</span> <span class="toc-text">-activeMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">-安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载"><span class="toc-number">3.1.</span> <span class="toc-text">-下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解压"><span class="toc-number">3.2.</span> <span class="toc-text">-解压</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群配置"><span class="toc-number">4.</span> <span class="toc-text">-集群配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#管控台端口"><span class="toc-number">4.1.</span> <span class="toc-text">-管控台端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#activemq-xml"><span class="toc-number">4.2.</span> <span class="toc-text">-activemq.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开放端口"><span class="toc-number">4.3.</span> <span class="toc-text">-开放端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动集群"><span class="toc-number">5.</span> <span class="toc-text">-启动集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZooInspector监控MQ集群"><span class="toc-number">6.</span> <span class="toc-text">-ZooInspector监控MQ集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#控制台"><span class="toc-number">7.</span> <span class="toc-text">-控制台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">8.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">8.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -273,9 +437,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: true,
