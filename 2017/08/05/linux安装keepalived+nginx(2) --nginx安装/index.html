@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linzhenc.github.io">
-  <title>Archives | linzc的博客</title>
+  <title>linux安装keepalived+nginx(2) --nginx安装 | linzc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一天进步一点。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="linzc的博客">
-<meta property="og:url" content="http://linzhenc.github.io/archives/index.html">
+  <meta name="description" content="这一章我们介绍在linux上安装nginx，这个软件厉害了，他不仅可以做反向代理服务器，还可以做HTTP服务器。意思就是他本身可以托管网站，和Tomcat差不多，主要是用他来做反向代理，实现请求的分发。">
+<meta name="keywords" content="keepalived,nginx,linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux安装keepalived+nginx(2) --nginx安装">
+<meta property="og:url" content="http://linzhenc.github.io/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/index.html">
 <meta property="og:site_name" content="linzc的博客">
-<meta property="og:description" content="一天进步一点。">
+<meta property="og:description" content="这一章我们介绍在linux上安装nginx，这个软件厉害了，他不仅可以做反向代理服务器，还可以做HTTP服务器。意思就是他本身可以托管网站，和Tomcat差不多，主要是用他来做反向代理，实现请求的分发。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img.blog.csdn.net/20151111145201317">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0222/154113_2p6A_3226688.png">
+<meta property="og:updated_time" content="2017-08-05T13:12:39.431Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linzc的博客">
-<meta name="twitter:description" content="一天进步一点。">
+<meta name="twitter:title" content="linux安装keepalived+nginx(2) --nginx安装">
+<meta name="twitter:description" content="这一章我们介绍在linux上安装nginx，这个软件厉害了，他不仅可以做反向代理服务器，还可以做HTTP服务器。意思就是他本身可以托管网站，和Tomcat差不多，主要是用他来做反向代理，实现请求的分发。">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20151111145201317">
   
     <link rel="alternative" href="/atom.xml" title="linzc的博客" type="application/atom+xml">
   
@@ -143,36 +148,115 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-linux安装keepalived+nginx(2) --nginx安装" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      linux安装keepalived+nginx(2) --nginx安装
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/" class="archive-article-date">
+
+        
+        <a href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/" class="archive-article-date">
   	<time datetime="2017-08-05T09:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/">linux安装keepalived+nginx(2) --nginx安装</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>这一章我们介绍在linux上安装nginx，这个软件厉害了，他不仅可以做反向代理服务器，还可以做HTTP服务器。意思就是他本身可以托管网站，和Tomcat差不多，主要是用他来做反向代理，实现请求的分发。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="nginx"><a href="#nginx" class="headerlink" title="-nginx"></a>-nginx</h2><p>我第一次接触他是在一个开源项目ibase4J上面，当然之前都听说过他的大名，但是一直没机会接触。进行深入的了解过后，发现其真的很强大，比较典型的就是把前后端分离的前端文件，放到nginx上，通过其反向代理转发web页面的请求到具体的服务中。其转发策略也可以根据具体的需求进行更改。如下图所示是典型的应用场景</p>
+<p><img src="http://img.blog.csdn.net/20151111145201317" alt=""></p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p> – linux虚拟机一台</p>
+<h2 id="安装依赖包"><a href="#安装依赖包" class="headerlink" title="-安装依赖包"></a>-安装依赖包</h2><p>  因为nginx的安装需要依赖其他库，所以要先安装依赖库。以下是具体步奏</p>
+<h3 id="安装PCRE库"><a href="#安装PCRE库" class="headerlink" title="-安装PCRE库"></a>-安装PCRE库</h3><pre><code>#cd /usr/local/
+#wget ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/pcre-8.36.tar.gz
+#tar -zxvf pcre-8.36.tar.gz
+#cd pcre-8.36
+#./configure
+# make &amp;&amp; make install
+</code></pre><p>注意：因为有些64位机器需要加入一下软连接nginx才能读取得到</p>
+<pre><code>#    ln -s /usr/local/lib/libpcre.so.1 /lib64/
+</code></pre><h3 id="安装zlib库"><a href="#安装zlib库" class="headerlink" title="-安装zlib库"></a>-安装zlib库</h3><pre><code># cd /usr/local/
+# wget http://zlib.net/zlib-1.2.8.tar.gz
+# tar -zxvf zlib-1.2.8.tar.gz 
+# cd zlib-1.2.8
+# ./configure
+# make &amp;&amp; make install
+</code></pre><h3 id="安装ssl"><a href="#安装ssl" class="headerlink" title="-安装ssl"></a>-安装ssl</h3><p>方法一：</p>
+<pre><code>#yum -y install openssl openssl-devel
+</code></pre><p>方法二：</p>
+<pre><code>#cd /usr/local/
+#wget http://www.openssl.org/source/openssl-1.0.1c.tar.gz
+#tar -zxvf openssl-1.0.1c.tar.gz
+#./config
+#make &amp;&amp; make install
+</code></pre><h2 id="安装nginx"><a href="#安装nginx" class="headerlink" title="-安装nginx"></a>-安装nginx</h2><pre><code>#cd /usr/local/
+#wget http://nginx.org/download/nginx-1.6.2.tar.gz
+#tar -zxvf nginx-1.6.2.tar.gz
+#cd nginx-1.6.2  
+#./configure --prefix=/usr/local/nginx
+#make &amp;&amp; make install
+</code></pre><p>建立一个软连接</p>
+<pre><code>#ln -s /usr/local/nginx-1.6.2 nginx
+</code></pre><p>注意：<br>–with-http_ssl_module 是为了配置https访问所需的模块</p>
+<p>–with-http_gzip_static_module 是静态压缩模块</p>
+<h2 id="启动nginx"><a href="#启动nginx" class="headerlink" title="-启动nginx"></a>-启动nginx</h2><pre><code>#/usr/local/nginx/sbin/nginx
+</code></pre><p>检查配置文件：</p>
+<pre><code>#/usr/local/nginx/sbin/nginx -t
+</code></pre><p>指定配置文件启动：</p>
+<pre><code>#/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+</code></pre><p>添加开机启动</p>
+<pre><code># vi /etc/rc.local
+</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0222/154113_2p6A_3226688.png" alt=""></p>
+<p>重启：</p>
+<pre><code>#/usr/local/nginx/sbin/nginx -s reload
+</code></pre><h2 id="测试"><a href="#测试" class="headerlink" title="-测试"></a>-测试</h2><p>测试nginx安装是否成功</p>
+<pre><code>[root@localhost sysconfig]# /usr/local/nginx/sbin/nginx -t
 
-        <div class="article-info info-on-right">
-          
+nginx: the configuration file /usr/local/nginx/conf/nginx.conf syntax is ok
+nginx: configuration file /usr/local/nginx/conf/nginx.conf test is successful
+</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" title="-结束语"></a>-结束语</h2><p>在安装过程中可能会遇到一些这样那样的问题，如果解决不了请联系博主。<br>这里只是安装了keepalived，下一篇博客会说明nginx的安装过程。</p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="-联系方式"></a>-联系方式</h3><p>个人QQ: 913545731 (请注明”博客疑问”)</p>
+<p>Spring Cloud中国社区① : 415028731</p>
+<p>Spring Cloud中国社区⑤ : 36959900</p>
+<hr>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -192,107 +276,117 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://linzhenc.github.io/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/" class="archive-article-date">
-  	<time datetime="2017-08-05T08:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux安装keepalived+nginx(1) --keepalived安装</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/">linux安装keepalived+nginx(1) --keepalived安装</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx"><span class="toc-number">1.</span> <span class="toc-text">-nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装依赖包"><span class="toc-number">3.</span> <span class="toc-text">-安装依赖包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装PCRE库"><span class="toc-number">3.1.</span> <span class="toc-text">-安装PCRE库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装zlib库"><span class="toc-number">3.2.</span> <span class="toc-text">-安装zlib库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装ssl"><span class="toc-number">3.3.</span> <span class="toc-text">-安装ssl</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装nginx"><span class="toc-number">4.</span> <span class="toc-text">-安装nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动nginx"><span class="toc-number">5.</span> <span class="toc-text">-启动nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">6.</span> <span class="toc-text">-测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">7.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">7.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/04/linux安装consul（集群）/" class="archive-article-date">
-  	<time datetime="2017-08-04T08:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-04</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/04/linux安装consul（集群）/">linux安装consul(集群)</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">consul</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -315,8 +409,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

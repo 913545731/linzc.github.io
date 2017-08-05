@@ -8,23 +8,23 @@
   <link rel="dns-prefetch" href="http://linzhenc.github.io">
   <title>linux安装consul(集群) | linzc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。 consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们下面将对四台机器进行consul集群操">
+  <meta name="description" content="consul是现如今比较主流的一款服务注册与发现的工具，consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。">
 <meta name="keywords" content="SpringCloud,consul">
 <meta property="og:type" content="article">
 <meta property="og:title" content="linux安装consul(集群)">
 <meta property="og:url" content="http://linzhenc.github.io/2017/08/04/linux安装consul（集群）/index.html">
 <meta property="og:site_name" content="linzc的博客">
-<meta property="og:description" content="consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。 consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们下面将对四台机器进行consul集群操">
+<meta property="og:description" content="consul是现如今比较主流的一款服务注册与发现的工具，consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://tonybai.com/wp-content/uploads/consul-arch.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0320/150400_q4KB_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0320/150152_O7Ph_3226688.png">
 <meta property="og:image" content="http://images2015.cnblogs.com/blog/866881/201604/866881-20160413144054816-698745676.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0320/151013_ZDQo_3226688.png">
-<meta property="og:updated_time" content="2017-08-04T09:28:16.556Z">
+<meta property="og:updated_time" content="2017-08-05T11:44:53.382Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux安装consul(集群)">
-<meta name="twitter:description" content="consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。 consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们下面将对四台机器进行consul集群操">
+<meta name="twitter:description" content="consul是现如今比较主流的一款服务注册与发现的工具，consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。">
 <meta name="twitter:image" content="http://tonybai.com/wp-content/uploads/consul-arch.png">
   
     <link rel="alternative" href="/atom.xml" title="linzc的博客" type="application/atom+xml">
@@ -172,16 +172,18 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>consul是现如今比较主流的一款服务注册与发现的工具，其集群架构如下图所示。consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。</p>
-<p>consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们下面将对四台机器进行consul集群操作，具体分配为三台server+一台Client的模式，即满足最少三台server的要求。三台server模式，如果leader挂掉其他两台机器会自动推举新的leader出来，如果两台机器部署server，其中一台挂掉，另外一台无法推举新的leader，也会导致集群down掉。<br><a id="more"></a><br>consul集群架构图如下：</p>
+<p>consul是现如今比较主流的一款服务注册与发现的工具，consul集群分为两部分，即client+server模式，值得注意的是consul的client是无状态的，只提供注册不保留任何信息，其注册信息都对应在其server集群中。</p>
 </blockquote>
+<a id="more"></a>
+<h2 id="consul"><a href="#consul" class="headerlink" title="- consul"></a>- consul</h2><p>consul的server集群官方建议至少三个及其以上的server运行，client则不限数量。我们下面将对四台机器进行consul集群操作，具体分配为三台server+一台Client的模式，即满足最少三台server的要求。三台server模式，如果leader挂掉其他两台机器会自动推举新的leader出来，如果两台机器部署server，其中一台挂掉，另外一台无法推举新的leader，也会导致集群down掉.</p>
+<p>consul集群架构图如下：</p>
 <p><img src="http://tonybai.com/wp-content/uploads/consul-arch.png" alt=""></p>
-<h2 id="基础准备"><a href="#基础准备" class="headerlink" title="基础准备"></a>基础准备</h2><p>准备：4台机器</p>
+<h2 id="基础准备"><a href="#基础准备" class="headerlink" title="-基础准备"></a>-基础准备</h2><p>准备：4台机器</p>
 <p>192.168.40.139</p>
 <p>192.168.40.155</p>
 <p>192.168.40.156</p>
 <p>192.168.40.157</p>
-<h3 id="获取consul安装包"><a href="#获取consul安装包" class="headerlink" title="获取consul安装包"></a>获取consul安装包</h3><p>新建目录：</p>
+<h3 id="获取consul安装包"><a href="#获取consul安装包" class="headerlink" title="-获取consul安装包"></a>-获取consul安装包</h3><p>新建目录：</p>
 <pre><code># cd /usr/local/bin
  # mkdir admin (存放consul程序)
  # mkdir webui （存放UI）
@@ -193,7 +195,7 @@
 </code></pre><p>检查consul版本：</p>
 <pre><code># ./consul version
 </code></pre><p>效果如下：<br><img src="https://static.oschina.net/uploads/space/2017/0320/150400_q4KB_3226688.png" alt=""></p>
-<p>###开放consul端口###<br>分别打开四台机器的防火墙端口：</p>
+<h3 id="开放consul端口"><a href="#开放consul端口" class="headerlink" title="-开放consul端口"></a>-开放consul端口</h3><p>分别打开四台机器的防火墙端口：</p>
 <pre><code># vi /etc/sysconfig/iptables
 </code></pre><p>在对应机器的防火墙中开放如下端口：</p>
 <pre><code>-A INPUT -p tcp -m state --state NEW -m tcp --dport 8300 -j ACCEPT
@@ -202,10 +204,9 @@
 </code></pre><p>效果如下图所示：<br><img src="https://static.oschina.net/uploads/space/2017/0320/150152_O7Ph_3226688.png" alt=""></p>
 <p>保存退出，并重启防火墙：</p>
 <pre><code># service iptables restart
-</code></pre><h2 id="开始集群配置"><a href="#开始集群配置" class="headerlink" title="开始集群配置"></a>开始集群配置</h2><p>我们这里以安装三个节点为例，具体配置如下：</p>
+</code></pre><h2 id="开始集群配置"><a href="#开始集群配置" class="headerlink" title="-开始集群配置"></a>-开始集群配置</h2><p>我们这里以安装三个节点为例，具体配置如下：</p>
 <p>192.168.40.139，192.168.40.155，192.168.40.156 以server模式运行<br>192.168.40.157 以client模式运行</p>
-<p>###配置server（三台，自动选举）###</p>
-<p>其实配置的关键就是启动命令，博主开始搭建这个集群的时候，在启动命令上踩过许多的坑。。。。</p>
+<h3 id="配置server（三台，自动选举）"><a href="#配置server（三台，自动选举）" class="headerlink" title="-配置server（三台，自动选举）"></a>-配置server（三台，自动选举）</h3><p>其实配置的关键就是启动命令，博主开始搭建这个集群的时候，在启动命令上踩过许多的坑。。。。</p>
 <p>我们需要让consul 运行起来。consul server推荐至少在3~5个之间，推荐的方法是一开始启动其中一台server，并且配置到bootstrap的模式，该模式node可以指定自己作为leader，而不用进行选举。然后再依次启动其他server，配置为非bootstrap的模式。最后把第一个serverbootstrap模式停止，重新以非bootstrap模式启动，这样server之间就可以自动选举leader。</p>
 <p>server1：</p>
 <pre><code># ./ consul agent -server -bootstrap -data-dir /tmp/consul -node=server1 
@@ -224,7 +225,7 @@
 </code></pre><p>PS:此时，我们在每台机子上输入consul info，我们会发现此时的leader是server2；我们并没有指定，是集群自己选择的： </p>
 <p>这时，我们模拟异常或者服务器退出，将server2关闭，这时我们再次输入consul info会发现，server1和server3自动选举了server1作为leader：</p>
 <p>接下来我们需要把</p>
-<h3 id="配置client"><a href="#配置client" class="headerlink" title="配置client"></a>配置client</h3><p>最后，将client机器连入集群，就是一个小型的完整集群了。</p>
+<h3 id="配置client"><a href="#配置client" class="headerlink" title="-配置client"></a>-配置client</h3><p>最后，将client机器连入集群，就是一个小型的完整集群了。</p>
 <p>在192.168.40.157上启动（ client ），即我们未使用的那一台机器上部署client，注意-join=命令后面的ip为当前leader的ip地址，-ui开启ui</p>
 <pre><code># ./consul agent  -bind=0.0.0.0 -client=192.168.40.157 -data-dir=data -node=192.168.40.157 -join=192.168.40.139 -ui
 </code></pre><p>全部节点启动完之后</p>
@@ -263,7 +264,11 @@ bootstrap-expect：在一个datacenter中期望提供的server节点数目，当
 -syslog：开启系统日志功能，只在linux/osx上生效
 -ui-dir: 提供存放web ui资源的路径，该目录必须是可读的
 -pid-file: 提供一个路径来存放pid文件，可以使用该文件进行SIGINT/SIGHUP(关闭/更新)agent
-</code></pre><p>##</p>
+</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" title="-结束语"></a>-结束语</h2><p>在安装过程中可能会遇到一些这样那样的问题，如果解决不了请联系博主。</p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="-联系方式"></a>-联系方式</h3><p>个人QQ: 913545731 (请注明”博客疑问”)</p>
+<p>Spring Cloud中国社区① : 415028731</p>
+<p>Spring Cloud中国社区⑤ : 36959900</p>
+<hr>
 
       
 
@@ -370,6 +375,20 @@ bootstrap-expect：在一个datacenter中期望提供的server节点数目，当
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          linux安装keepalived+nginx(1) --keepalived安装
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -391,7 +410,7 @@ bootstrap-expect：在一个datacenter中期望提供的server节点数目，当
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础准备"><span class="toc-number">1.</span> <span class="toc-text">基础准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取consul安装包"><span class="toc-number">1.1.</span> <span class="toc-text">获取consul安装包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始集群配置"><span class="toc-number">2.</span> <span class="toc-text">开始集群配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置client"><span class="toc-number">2.1.</span> <span class="toc-text">配置client</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#consul"><span class="toc-number">1.</span> <span class="toc-text">- consul</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基础准备"><span class="toc-number">2.</span> <span class="toc-text">-基础准备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#获取consul安装包"><span class="toc-number">2.1.</span> <span class="toc-text">-获取consul安装包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开放consul端口"><span class="toc-number">2.2.</span> <span class="toc-text">-开放consul端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开始集群配置"><span class="toc-number">3.</span> <span class="toc-text">-开始集群配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置server（三台，自动选举）"><span class="toc-number">3.1.</span> <span class="toc-text">-配置server（三台，自动选举）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置client"><span class="toc-number">3.2.</span> <span class="toc-text">-配置client</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">4.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">4.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -507,6 +526,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">consul</a>
               </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">keepalived</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">nginx</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
@@ -557,7 +588,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         <ul class="search-ul">
           
             <li class="search-li">
-              <a href="http://blog.battcn.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接</a>
+              <a href="http://blog.battcn.com/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>battcn</a>
             </li>
           
         </ul>
@@ -568,7 +599,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
     
     	<section class="tools-section tools-section-me" q-show="aboutme">
   	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  		<div class="aboutme-wrap" id="js-aboutme">很简单  只希望&lt;br&gt;&lt;br&gt;努力 不负自己&lt;br&gt;不负爱我的人，和我爱的人&lt;br&gt;</div>
   	  	
     	</section>
     

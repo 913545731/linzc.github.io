@@ -6,18 +6,23 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linzhenc.github.io">
-  <title>Archives | linzc的博客</title>
+  <title>linux安装keepalived+nginx(1) --keepalived安装 | linzc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一天进步一点。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="linzc的博客">
-<meta property="og:url" content="http://linzhenc.github.io/archives/index.html">
+  <meta name="description" content="Keepalived是一款高可用软件，它的功能主要包括两方面： (1) 通过IP漂移，实现服务的高可用：服务器集群共享一个虚拟IP，同一时间只有一个服务器占有虚拟IP并对外提供服务，若该服务器不可用，则虚拟IP漂移至另一台服务器并对外提供服务； (2)对LVS应用服务层的应用服务器集群进行状态监控：若应用服务器不可用，则keepalived将其从集群中摘除，若应用服务器恢复，则keepalive">
+<meta name="keywords" content="keepalived,nginx,linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux安装keepalived+nginx(1) --keepalived安装">
+<meta property="og:url" content="http://linzhenc.github.io/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/index.html">
 <meta property="og:site_name" content="linzc的博客">
-<meta property="og:description" content="一天进步一点。">
+<meta property="og:description" content="Keepalived是一款高可用软件，它的功能主要包括两方面： (1) 通过IP漂移，实现服务的高可用：服务器集群共享一个虚拟IP，同一时间只有一个服务器占有虚拟IP并对外提供服务，若该服务器不可用，则虚拟IP漂移至另一台服务器并对外提供服务； (2)对LVS应用服务层的应用服务器集群进行状态监控：若应用服务器不可用，则keepalived将其从集群中摘除，若应用服务器恢复，则keepalive">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0222/104125_KzQF_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0222/104524_Zmkl_3226688.png">
+<meta property="og:updated_time" content="2017-08-05T13:13:33.782Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linzc的博客">
-<meta name="twitter:description" content="一天进步一点。">
+<meta name="twitter:title" content="linux安装keepalived+nginx(1) --keepalived安装">
+<meta name="twitter:description" content="Keepalived是一款高可用软件，它的功能主要包括两方面： (1) 通过IP漂移，实现服务的高可用：服务器集群共享一个虚拟IP，同一时间只有一个服务器占有虚拟IP并对外提供服务，若该服务器不可用，则虚拟IP漂移至另一台服务器并对外提供服务； (2)对LVS应用服务层的应用服务器集群进行状态监控：若应用服务器不可用，则keepalived将其从集群中摘除，若应用服务器恢复，则keepalive">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/space/2017/0222/104125_KzQF_3226688.png">
   
     <link rel="alternative" href="/atom.xml" title="linzc的博客" type="application/atom+xml">
   
@@ -143,82 +148,111 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-linux安装keepalived+nginx(1) --keepalived安装" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/" class="archive-article-date">
-  	<time datetime="2017-08-05T09:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/">linux安装keepalived+nginx(2) --nginx安装</a>
+    <h1 class="article-title" itemprop="name">
+      linux安装keepalived+nginx(1) --keepalived安装
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keepalived</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">nginx</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/" class="archive-article-date">
+        
+        <a href="/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/" class="archive-article-date">
   	<time datetime="2017-08-05T08:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/">linux安装keepalived+nginx(1) --keepalived安装</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Keepalived是一款高可用软件，它的功能主要包括两方面：</p>
+<p>(1) 通过IP漂移，实现服务的高可用：服务器集群共享一个虚拟IP，同一时间只有一个服务器占有虚拟IP并对外提供服务，若该服务器不可用，则虚拟IP漂移至另一台服务器并对外提供服务；</p>
+<p>(2)对LVS应用服务层的应用服务器集群进行状态监控：若应用服务器不可用，则keepalived将其从集群中摘除，若应用服务器恢复，则keepalived将其重新加入集群中。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="keepalived"><a href="#keepalived" class="headerlink" title="-keepalived"></a>-keepalived</h2><p>当然我们这里需要keepalived结合nginx组建成一个高可用的nginx集群。这里我们主要就是使用keepalived的ip漂移，我们在后面搭建nginx的教程里面会搭建两个nginx，他们分别拥有两个独立的ip，我们通过keepalived虚拟一个VIP（虚拟IP），然后把这个虚拟IP暴露出去，外部的请求直接由虚拟ip接受，然后通过ip漂移算法，分发给其下游的两个nginx。通过nginx再次实现转发具体请求到具体的服务中去，以此来实现nginx的高可用。这种办法我觉得很好，只暴露出一个统一的虚拟地址。真实的ip地址不用暴露出去。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p> – linux虚拟机一台</p>
+<h2 id="编译安装"><a href="#编译安装" class="headerlink" title="-编译安装"></a>-编译安装</h2><p> 我这里安装在local目录下，具体安装目录可根据具体情况进行调整</p>
+<pre><code>[root@localhost //]# cd /usr/local/src
+</code></pre><p>下载keepalived，新linux系统可能会提示未安装wget命令，此时就需要先安装wget，安装wget之后，执行下面命令</p>
+<pre><code>[root@localhost src]# wget  http://www.keepalived.org/software/keepalived-1.2.18.tar.gz
+</code></pre><p>解压：</p>
+<pre><code>[root@localhost src]# tar -zxvf keepalived-1.2.18.tar.gz
+</code></pre><p>进入keepalived目录</p>
+<pre><code>[root@localhost src]# cd keepalived-1.2.18
+</code></pre><p>指定安装路径</p>
+<pre><code>[root@localhost keepalived-1.2.18]# ./configure --prefix=/usr/local/keepalived
+</code></pre><h3 id="GCC错误"><a href="#GCC错误" class="headerlink" title="-GCC错误"></a>-GCC错误</h3><p>博主在执行上面的命令的时候，遇到一个错误（错误：没有安装gcc，cc）,如果未遇到请略过，因为博主这里安装用的全新的系统，所以很多命令都没安装</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0222/104125_KzQF_3226688.png" alt=""></p>
+<p>安装gcc<br>    [root@localhost keepalived-1.2.18]# yum install gcc gcc-c++</p>
+<p>在这里还有一个注意问题，如果未经常使用过linux，可能会误按ctrl+c，导致安装退出， 再次运行 yum install gcc gcc-c++命令时，报错</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0222/104524_Zmkl_3226688.png" alt=""><br>出现这种情况只需要，强制关掉yum进程：</p>
+<pre><code>#rm -f /var/run/yum.pid
+</code></pre><p>然后再次：# yum install gcc gcc-c++ 就可以继续安装直到安装完毕。</p>
+<p>然后继续执行： </p>
+<pre><code>#./configure --prefix=/usr/local/keepalived
+</code></pre><h3 id="openssl-错误"><a href="#openssl-错误" class="headerlink" title="-openssl 错误"></a>-openssl 错误</h3><p>然而并没有那么顺利啊，又出现问题了（openssl-devel）。不过不要紧，肯定有命令或者组件未安装，不要担心。</p>
+<p>错误如下</p>
+<pre><code>!!! OpenSSL is not properly installed on your system. !!!
 
-        <div class="article-info info-on-right">
-          
+!!! Can not include OpenSSL headers files. 
+</code></pre><p>解决方法：安装openssl-devel</p>
+<pre><code>#yum -y install openssl-devel
+</code></pre><p>然后再次执行</p>
+<pre><code>#./configure --prefix=/usr/local/keepalived
+</code></pre><p>哈哈，这次没问题啦！下一步编译</p>
+<p>编译keepalived</p>
+<pre><code># make &amp;&amp; make install #编译keepalived源码
+</code></pre><p>最后一步，设定keepalived的配置文件，并将keepalived注册为服务，然后设定为开机启动</p>
+<pre><code>#mkdir /etc/keepalived
+
+#cp /usr/local/keepalived/etc/keepalived/keepalived.conf /etc/keepalived/keepalived.conf
+
+#cp /usr/local/keepalived/etc/rc.d/init.d/keepalived /etc/init.d/
+
+#cp /usr/local/keepalived/etc/sysconfig/keepalived /etc/sysconfig/
+
+#cp /usr/local/keepalived/sbin/keepalived /usr/sbin/
+</code></pre><p>注册开机启动</p>
+<pre><code>#chkconfig --level 2345 keepalived on  
+</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" title="-结束语"></a>-结束语</h2><p>在安装过程中可能会遇到一些这样那样的问题，如果解决不了请联系博主。<br>这里只是安装了keepalived，下一篇博客会说明nginx的安装过程。</p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="-联系方式"></a>-联系方式</h3><p>个人QQ: 913545731 (请注明”博客疑问”)</p>
+<p>Spring Cloud中国社区① : 415028731</p>
+<p>Spring Cloud中国社区⑤ : 36959900</p>
+<hr>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -238,61 +272,126 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://linzhenc.github.io/2017/08/05/linux安装keepalived+nginx(1) --keepalived安装/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/04/linux安装consul（集群）/" class="archive-article-date">
-  	<time datetime="2017-08-04T08:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-04</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          linux安装keepalived+nginx(2) --nginx安装
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/08/04/linux安装consul（集群）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux安装consul(集群)</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/04/linux安装consul（集群）/">linux安装consul(集群)</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">SpringCloud</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">consul</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#keepalived"><span class="toc-number">1.</span> <span class="toc-text">-keepalived</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编译安装"><span class="toc-number">3.</span> <span class="toc-text">-编译安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GCC错误"><span class="toc-number">3.1.</span> <span class="toc-text">-GCC错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#openssl-错误"><span class="toc-number">3.2.</span> <span class="toc-text">-openssl 错误</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">4.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">4.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -315,8 +414,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
