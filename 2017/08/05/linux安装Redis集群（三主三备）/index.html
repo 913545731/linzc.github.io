@@ -6,27 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linzhenc.github.io">
-  <title>linux安装activeMQ 并集群（ZooInspector+activeMQ） | linzc的博客</title>
+  <title>linux安装Redis集群（三主三备） | linzc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
-<meta name="keywords" content="linux,activeMQ,ZooInspector">
+  <meta name="description" content="Redis是一个可基于内存亦可持久化的日志型（aof，rdb）、高性能Key-Value数据库，并提供多种语言的API，Redis支持主从同步。数据可以从主服务器向任意数量的从服务器上同步，从服务器可以是关联其他从服务器的主服务器。">
+<meta name="keywords" content="linux,redis">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux安装activeMQ 并集群（ZooInspector+activeMQ）">
-<meta property="og:url" content="http://linzhenc.github.io/2017/08/05/linux安装activeMQ 并集群（ZooInspector+activeMQ）/index.html">
+<meta property="og:title" content="linux安装Redis集群（三主三备）">
+<meta property="og:url" content="http://linzhenc.github.io/2017/08/05/linux安装Redis集群（三主三备）/index.html">
 <meta property="og:site_name" content="linzc的博客">
-<meta property="og:description" content="ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
+<meta property="og:description" content="Redis是一个可基于内存亦可持久化的日志型（aof，rdb）、高性能Key-Value数据库，并提供多种语言的API，Redis支持主从同步。数据可以从主服务器向任意数量的从服务器上同步，从服务器可以是关联其他从服务器的主服务器。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/154058_1sBH_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/162322_2WIP_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172030_7Iht_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172041_OHqp_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172053_DqzZ_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0228/172610_SRkD_3226688.png">
-<meta property="og:updated_time" content="2017-08-05T13:48:51.574Z">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0227/163211_AisH_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0227/105940_4Yuj_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0227/113428_L1LT_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0227/141519_zdv0_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0227/163920_uHEz_3226688.jpg">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0227/164741_O8iW_3226688.png">
+<meta property="og:updated_time" content="2017-08-05T14:51:41.569Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux安装activeMQ 并集群（ZooInspector+activeMQ）">
-<meta name="twitter:description" content="ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。">
-<meta name="twitter:image" content="https://static.oschina.net/uploads/space/2017/0228/154058_1sBH_3226688.png">
+<meta name="twitter:title" content="linux安装Redis集群（三主三备）">
+<meta name="twitter:description" content="Redis是一个可基于内存亦可持久化的日志型（aof，rdb）、高性能Key-Value数据库，并提供多种语言的API，Redis支持主从同步。数据可以从主服务器向任意数量的从服务器上同步，从服务器可以是关联其他从服务器的主服务器。">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/space/2017/0227/163211_AisH_3226688.png">
   
     <link rel="alternative" href="/atom.xml" title="linzc的博客" type="application/atom+xml">
   
@@ -152,20 +152,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-linux安装activeMQ 并集群（ZooInspector+activeMQ）" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-linux安装Redis集群（三主三备）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      linux安装activeMQ 并集群（ZooInspector+activeMQ）
+      linux安装Redis集群（三主三备）
     </h1>
   
 
         
-        <a href="/2017/08/05/linux安装activeMQ 并集群（ZooInspector+activeMQ）/" class="archive-article-date">
-  	<time datetime="2017-08-05T10:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
+        <a href="/2017/08/05/linux安装Redis集群（三主三备）/" class="archive-article-date">
+  	<time datetime="2017-08-05T12:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
 </a>
         
       </header>
@@ -173,85 +173,313 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>ActiveMQ是一种开源的，实现了JMS1.1规范的，面向消息(MOM)的中间件，为应用程序提供高效的、可扩展的、稳定的和安全的企业级消息通信。</p>
+<p>Redis是一个可基于内存亦可持久化的日志型（aof，rdb）、高性能Key-Value数据库，并提供多种语言的API，Redis支持主从同步。数据可以从主服务器向任意数量的从服务器上同步，从服务器可以是关联其他从服务器的主服务器。</p>
 </blockquote>
 <a id="more"></a>
-<h2 id="activeMQ"><a href="#activeMQ" class="headerlink" title="-activeMQ"></a>-activeMQ</h2><p>这里我们主要说明如何搭建ActiveMQ的集群。</p>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p>-三台虚拟机（140 141 149）</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="-安装"></a>-安装</h2><h3 id="下载"><a href="#下载" class="headerlink" title="-下载"></a>-下载</h3><pre><code># cd /usr/local/src
-# wget http://mirrors.cnnic.cn/apache//activemq/5.14.2/apache-activemq-5.14.2-bin.tar.gz  
-</code></pre><h3 id="解压"><a href="#解压" class="headerlink" title="-解压"></a>-解压</h3><pre><code># tar -zxvf apache-activemq-5.14.2-bin.tar.gz
-</code></pre><p>重命名解压包，我命名的方式是activemq+机器的ip最后一位 当然你也可以不用修改 直接apache-activemq-5.14.2</p>
-<pre><code># mv apache-activemq-5.14.2 activemq141
-</code></pre><h2 id="集群配置"><a href="#集群配置" class="headerlink" title="-集群配置"></a>-集群配置</h2><h3 id="管控台端口"><a href="#管控台端口" class="headerlink" title="-管控台端口"></a>-管控台端口</h3><p>修改activemq管控台端口，也可以不用修改，此处修改是为了即使是伪集群也可以搭建，我此处</p>
-<p>141 设置的为8161</p>
-<p>142 设置的为8162</p>
-<p>149 设置的为8163</p>
-<pre><code>#vi /usr/local/src/activemq140/conf/jetty.xml
-</code></pre><p>具体修改，如下图：<br><img src="https://static.oschina.net/uploads/space/2017/0228/154058_1sBH_3226688.png" alt=""></p>
-<h3 id="activemq-xml"><a href="#activemq-xml" class="headerlink" title="-activemq.xml"></a>-activemq.xml</h3><p>集群配置（/usr/local/src/activemq141/conf/activemq.xml配置 ）：</p>
-<pre><code># vi /usr/local/src/activemq140/conf/activemq.xml
-</code></pre><p>注意：此处集群的机器的 brokerName必须一致</p>
-<p>机器140配置：<br>    <broker xmlns="http://activemq.apache.org/schema/core" brokername="dubbomq"><br>    <persistenceadapter><br>        <replicatedleveldb directory="${activemq.data}/leveldb" replicas="3" bind="tcp://0.0.0.0:62621" zkaddress="192.168.40.140:2182,192.168.40.141:2183,192.168.40.149:2181" hostname="192.168.40.140" sync="local_disk" zkpath="/activemq/leveldb-stores"><br>    </replicatedleveldb></persistenceadapter><br>    </broker><br>机器141配置：<br>    <broker xmlns="http://activemq.apache.org/schema/core" brokername="dubbomq"><br>    <persistenceadapter><br>        <replicatedleveldb directory="${activemq.data}/leveldb" replicas="3" bind="tcp://0.0.0.0:62622" zkaddress="192.168.40.140:2182,192.168.40.141:2183,192.168.40.149:2181" hostname="192.168.40.141" sync="local_disk" zkpath="/activemq/leveldb-stores"><br>    </replicatedleveldb></persistenceadapter><br>    </broker><br>机器149配置：<br>    <broker xmlns="http://activemq.apache.org/schema/core" brokername="dubbomq"><br>    <persistenceadapter><br>        <replicatedleveldb directory="${activemq.data}/leveldb" replicas="3" bind="tcp://0.0.0.0:62623" zkaddress="192.168.40.140:2182,192.168.40.141:2183,192.168.40.149:2181" hostname="192.168.40.149" sync="local_disk" zkpath="/activemq/leveldb-stores"><br>    </replicatedleveldb></persistenceadapter><br>    </broker> </p>
-<p>启动之前需在防火墙上打开对应端口：</p>
-<h3 id="开放端口"><a href="#开放端口" class="headerlink" title="-开放端口"></a>-开放端口</h3><p>第一台机器（192.168.40.140）</p>
-<pre><code>#vi /etc/sysconfig/iptables
+<h2 id="redis"><a href="#redis" class="headerlink" title="-redis"></a>-redis</h2><p>我们这里搭建的集群就需要六台机器，三台为主，redis集群和其他技术的集群有点不一样。redis一共分成16384个槽，并且把这些槽基本算是平均分配到三台机器上，。引入了备机才能算集群+高可用，即存入的数据采用一定策略存到三台机器上，而备用机会实现同步主机的数据，并且当主机发生故障时，备用机能及时的通过选举，上来充当主机，维护集群的稳定。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p>-六台虚拟机<br>192.168.40.142</p>
+<p>………..</p>
+<p>192.168.40.147</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="-安装"></a>-安装</h2><p>首先安装分别安装： </p>
+<pre><code>#yum -y install wget
+</code></pre><p>注意：编译时候如果报错。可能是没安装gcc，请安装后再执行 make &amp;&amp; make install</p>
+<pre><code># yum install gcc gcc-c++
+</code></pre><p>安装redis时遇到zmalloc.h:50:31: 致命错误：jemalloc/jemalloc.h：没有那个文件或目录</p>
+<p>解决办法</p>
+<pre><code># make MALLOC=libc
+</code></pre><p>下载并解压</p>
+<pre><code># cd /usr/local
+# wget http://download.redis.io/releases/redis-3.2.4.tar.gz
+# tar -zxvf redis-3.2.4.tar.gz
 
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 8161 -j ACCEPT
+# mv redis-3.2.4 redis3
+</code></pre><p>编译安装</p>
+<pre><code># cd redis3
+# make &amp;&amp; make install
+</code></pre><p>单机启动办法：</p>
+<pre><code># redis-server redis.conf
+</code></pre><h2 id="集群配置"><a href="#集群配置" class="headerlink" title="-集群配置"></a>-集群配置</h2><p>创建集群配置目录</p>
+<p>第一台：192.168.40.142</p>
+<pre><code># mkdir -p /usr/local/redis3/cluster/7142
 
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 62621 -j ACCEPT
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 51511 -j ACCEPT
-</code></pre><p>第一台机器（192.168.40.141）</p>
-<pre><code>#vi /etc/sysconfig/iptables
+#cp /usr/local/redis3/redis.conf /usr/local/redis3/cluster/7142/redis-7142.conf
+</code></pre><p>第二台：192.168.40.143</p>
+<pre><code># mkdir -p /usr/local/redis3/cluster/7143
 
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 81612 -j ACCEPT
+#cp /usr/local/redis3/redis.conf /usr/local/redis3/cluster/7143/redis-7143.conf
+</code></pre><p>第三台：192.168.40.144</p>
+<pre><code># mkdir -p /usr/local/redis3/cluster/7144
 
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 62622 -j ACCEPT
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 51512 -j ACCEPT
-</code></pre><p>第一台机器（192.168.40.149）</p>
-<pre><code>#vi /etc/sysconfig/iptables
+#cp /usr/local/redis3/redis.conf /usr/local/redis3/cluster/7144/redis-7144.conf
+</code></pre><p>第四台：192.168.40.145</p>
+<pre><code># mkdir -p /usr/local/redis3/cluster/7145
 
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 8163 -j ACCEPT
+#cp /usr/local/redis3/redis.conf /usr/local/redis3/cluster/7145/redis-7145.conf
+</code></pre><p>第五台：192.168.40.146</p>
+<pre><code># mkdir -p /usr/local/redis3/cluster/7146
 
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 62623 -j ACCEPT
--A INPUT -p tcp -mstate --state NEW -m tcp --dport 51513 -j ACCEPT
-</code></pre><h2 id="启动集群"><a href="#启动集群" class="headerlink" title="-启动集群"></a>-启动集群</h2><p>再分别重启防火墙：</p>
+#cp /usr/local/redis3/redis.conf /usr/local/redis3/cluster/7146/redis-7146.conf
+</code></pre><p>第六台：192.168.40.147</p>
+<pre><code># mkdir -p /usr/local/redis3/cluster/7147
+
+#cp /usr/local/redis3/redis.conf /usr/local/redis3/cluster/7147/redis-7147.conf
+</code></pre><p>4.修改配置文件redis-7142.conf …  redis-7147.conf （6个文件都按照以下格式 一 一修改）</p>
+<pre><code>bind 127.0.0.1 # 改为本机地址
+
+port 7142 #改为你设置的端口号
+
+cluster-enabled yes
+
+cluster-node-timeout 15000
+
+cluster-config-file  /usr/local/redis3/cluster/7142/nodes-7142.conf 
+
+cluster-migration-barrier 1
+</code></pre><p>注意：6台机器的配置都要改哦 特别容易出错的是7142这种 因为每一台机器设置都不一样 </p>
+<p>比如我的就分别是7142，7143,7144,7145,7146,7147</p>
+<p>在每台机器的防火墙强上，配置redis集群端口，除了设置7142这类端口，还需设置redis集群直接通信的接口，系统默认是在你设置的redis端口上默认加上10000，及1742</p>
+<p>编辑防火墙(此处只拿192.168.40.142机器来做演示，其他机器仿照着改 只用改变端口号就行)：</p>
+<pre><code>  #  vi /etc/sysconfig/iptables
+
+添加如下两个redis端口：
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 7147 -j ACCEPT
+-A INPUT -p tcp -m state --state NEW -m tcp --dport 17147 -j ACCEPT
+</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0227/163211_AisH_3226688.png" alt=""></p>
+<p>保存 退出 重启防火墙</p>
 <pre><code># service iptables restart
-</code></pre><p>按安装顺序启动activemq：</p>
-<pre><code># /usr/local/src/activemq140/bin/activemq start
+</code></pre><p>##-启动各节点 ##</p>
+<p>分别 启动各个节点</p>
+<p>第一台：</p>
+<pre><code># /usr/local/redis3/src/redis-server /usr/local/redis3/cluster/7142/redis-7142.conf
+</code></pre><p>第二台：</p>
+<pre><code>#  /usr/local/redis3/src/redis-server /usr/local/redis3/cluster/7143/redis-7143.conf
+</code></pre><p>第三台：</p>
+<pre><code># /usr/local/redis3/src/redis-server /usr/local/redis3/cluster/7144/redis-7144.conf
+</code></pre><p>第四台：</p>
+<pre><code>#  /usr/local/redis3/src/redis-server /usr/local/redis3/cluster/7145/redis-7145.conf
+</code></pre><p>第五台：</p>
+<pre><code># /usr/local/redis3/src/redis-server /usr/local/redis3/cluster/7146/redis-7146.conf
+</code></pre><p>第六台：</p>
+<pre><code>#  /usr/local/redis3/src/redis-server /usr/local/redis3/cluster/7147/redis-7147.conf
+</code></pre><p>果成功则会显示如下界面：</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0227/105940_4Yuj_3226688.png" alt=""></p>
+<p>特别注意：该界面不能关闭，不能退出。必须保持。否则会导致redis不可用</p>
+<p>解决办法使用nohup命令来启动 就可以了</p>
+<p>注意：此时虽然6台机器都正常运行了redis，但是集群仍未完成</p>
+<p>6、查看服务（新开终端）</p>
+<pre><code># ps -ef | grep redis   #查看是否启动成功
 
-# /usr/local/src/activemq141/bin/activemq start
+# netstat -tnlp | grep redis #可以看到redis监听端口
+</code></pre><h2 id="创建集群"><a href="#创建集群" class="headerlink" title="-创建集群"></a>-创建集群</h2><h3 id="安装ruby、rubygems"><a href="#安装ruby、rubygems" class="headerlink" title="-安装ruby、rubygems"></a>-安装ruby、rubygems</h3><p>前面已经准备好了搭建集群的redis节点，接下来我们要把这些节点都串连起来搭建集群。官方提供了一个工具：redis-trib.rb(/usr/local/redis-3.2.1/src/redis-trib.rb) 看后缀就知道不能直接执行，它是用ruby写的一个程序，所以我们还得安装ruby.</p>
+<pre><code># yum -y install ruby ruby-devel rubygems rpm-build
+</code></pre><p>再用 gem 这个命令来安装 redis接口    gem是ruby的一个工具包.</p>
+<p>此时会出现一个问题：因为墙的缘故安装gem会没有反应，解决办法是更换为阿里巴巴的ruby源。</p>
+<pre><code># 删除默认的官方源
+# gem sources -r https://rubygems.org/
 
-# /usr/local/src/activemq149/bin/activemq start
-</code></pre><p>监听日志：</p>
-<pre><code># tail -f /usr/local/src/activemq140/data/activemq.log
+#添加淘宝源
+# gem sources -a https://ruby.taobao.org/
 
-# tail -f /usr/local/src/activemq141/data/activemq.log
+#查看当前源   
+[root@localhost src]# gem sources -l
+*** CURRENT SOURCES ***
 
-# tail -f /usr/local/src/activemq149/data/activemq.log
-</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0228/162322_2WIP_3226688.png" alt=""></p>
-<p>设置开机启动：</p>
-<pre><code># vi /etc/rc.local
-su - root -c /usr/local/src/activemq140/bin/activemq start
+https://ruby.taobao.org/
+</code></pre><h3 id="安装gem"><a href="#安装gem" class="headerlink" title="-安装gem"></a>-安装gem</h3><p>安装gem</p>
+<pre><code>[root@localhost src]# gem install redis
+Successfully installed redis-3.3.3
+Parsing documentation for redis-3.3.3
+</code></pre><p>上面结束了，接下来运行一下redis-trib.rb</p>
+<pre><code># /usr/local/redis3/src/redis-trib.rb
+</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0227/113428_L1LT_3226688.png" alt=""></p>
+<p>redis集群就是依靠 上面这些操作 完成集群搭建的.</p>
+<p> 确认所有的节点都启动，接下来使用参数create 创建 (在192.168.40.142中来创建)</p>
+<pre><code>/usr/local/redis3/src/redis-trib.rb  create  --replicas  1  192.168.40.142:7142 192.168.40.143:7143  192.168.40.144:7144 192.168.40.145:7145  192.168.40.146:7146  192.168.40.147:7147
+</code></pre><p>集群创建成功：如下所示</p>
+<pre><code>[root@localhost src]#  /usr/local/redis3/src/redis-trib.rb  create  --replicas  1  192.168.40.142:7142 192.168.40.143:7143  192.168.40.144:7144 192.168.40.145:7145  192.168.40.146:7146  192.168.40.147:7147
+&gt;&gt;&gt; Creating cluster
+&gt;&gt;&gt; Performing hash slots allocation on 6 nodes...
+Using 3 masters:
+192.168.40.142:7142
+192.168.40.143:7143
+192.168.40.144:7144
+Adding replica 192.168.40.145:7145 to 192.168.40.142:7142
+Adding replica 192.168.40.146:7146 to 192.168.40.143:7143
+Adding replica 192.168.40.147:7147 to 192.168.40.144:7144
+M: d80a23c6773fef5456e81f0c1d187d7e51c3d650 192.168.40.142:7142
+   slots:0-5460 (5461 slots) master
+M: 382ed5a4cb3108c95cab35e27ea0ab340ce45270 192.168.40.143:7143
+   slots:5461-10922 (5462 slots) master
+M: 909bbc04c98fae3cd17cf4916b1edcec65cb57d1 192.168.40.144:7144
+   slots:10923-16383 (5461 slots) master
+S: 75cde28bfbfc8f27ead87302a3aa2baba44dd983 192.168.40.145:7145
+   replicates d80a23c6773fef5456e81f0c1d187d7e51c3d650
+S: 09314222f26560cf405c77ac77d09cae13a26fa5 192.168.40.146:7146
+   replicates 382ed5a4cb3108c95cab35e27ea0ab340ce45270
+S: 88a5ea69ec4f73b169f6ece244a1a525b86ccd66 192.168.40.147:7147
+   replicates 909bbc04c98fae3cd17cf4916b1edcec65cb57d1
+Can I set the above configuration? (type &apos;yes&apos; to accept): yes
+&gt;&gt;&gt; Nodes configuration updated
+&gt;&gt;&gt; Assign a different config epoch to each node
+&gt;&gt;&gt; Sending CLUSTER MEET messages to join the cluster
+Waiting for the cluster to join....
+&gt;&gt;&gt; Performing Cluster Check (using node 192.168.40.142:7142)
+M: d80a23c6773fef5456e81f0c1d187d7e51c3d650 192.168.40.142:7142
+   slots:0-5460 (5461 slots) master
+   1 additional replica(s)
+M: 909bbc04c98fae3cd17cf4916b1edcec65cb57d1 192.168.40.144:7144
+   slots:10923-16383 (5461 slots) master
+   1 additional replica(s)
+S: 88a5ea69ec4f73b169f6ece244a1a525b86ccd66 192.168.40.147:7147
+   slots: (0 slots) slave
+   replicates 909bbc04c98fae3cd17cf4916b1edcec65cb57d1
+M: 382ed5a4cb3108c95cab35e27ea0ab340ce45270 192.168.40.143:7143
+   slots:5461-10922 (5462 slots) master
+   1 additional replica(s)
+S: 75cde28bfbfc8f27ead87302a3aa2baba44dd983 192.168.40.145:7145
+   slots: (0 slots) slave
+   replicates d80a23c6773fef5456e81f0c1d187d7e51c3d650
+S: 09314222f26560cf405c77ac77d09cae13a26fa5 192.168.40.146:7146
+   slots: (0 slots) slave
+   replicates 382ed5a4cb3108c95cab35e27ea0ab340ce45270
+[OK] All nodes agree about slots configuration.
+&gt;&gt;&gt; Check for open slots...
+&gt;&gt;&gt; Check slots coverage...
+[OK] All 16384 slots covered.
+</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0227/141519_zdv0_3226688.png" alt=""></p>
+<p>说明：<br>/usr/local/redis3/src/redis-trib.rb  create  –replicas  1  192.168.40.142:7142 192.168.40.143:7143  192.168.40.144:7144 192.168.40.145:7145  192.168.40.146:7146  192.168.40.147:7147</p>
+<p>–replicas  1  表示 自动为每一个master节点分配一个slave节点    上面有6个节点，程序会按照一定规则生成 3个master（主）3个slave(从)</p>
+<p><strong>前面已经提醒过的 防火墙一定要开放监听的端口，否则会创建失败。</strong></p>
+<p> 运行中，提示Can I set the above configuration? (type ‘yes’ to accept): yes    //输入yes</p>
+<p> 接下来 提示  Waiting for the cluster to join……….  安装的时候在这里就一直等等等，没反应，傻傻等半天，看这句提示上面一句，Sending Cluster Meet Message to join the Cluster.</p>
+<p>这下明白了，我刚开始在一台Server上去配，也是不需要等的，这里还需要跑到Server2上做一些这样的操作。</p>
+<p>在192.168.1.238, redis-cli -c -p 700*  分别进入redis各节点的客户端命令窗口， 依次输入 cluster meet 192.168.1.238 7000……</p>
+<p>回到Server1，已经创建完毕了。</p>
+<p>查看一下 /usr/local/redis/src/redis-trib.rb check 192.168.1.237:7000</p>
+<p>到这里集群已经初步搭建好了。</p>
+<p>最后可以测试：</p>
+<pre><code>[root@localhost ~]# /usr/local/redis3/src/redis-cli -h 192.168.40.145 -p 7145
+192.168.40.145:7145&gt; get test1
+&quot;hh&quot;
+192.168.40.145:7145&gt; set gg shuaige
+OK
+192.168.40.145:7145&gt;
+</code></pre><p>在其他几台机器上获取</p>
+<pre><code>[root@localhost src]#  redis-cli -h 192.168.40.145 -p 7145
+192.168.40.145:7145&gt; set test1 hh
+OK
+192.168.40.145:7145&gt; get test
+(error) MOVED 6918 192.168.40.143:7143
+192.168.40.145:7145&gt; get test1
+&quot;hh&quot;
+192.168.40.145:7145&gt; get gg
+&quot;shuaige&quot;
+192.168.40.145:7145&gt;
+</code></pre><p>配置成功。</p>
+<h2 id="redis集群操作"><a href="#redis集群操作" class="headerlink" title="-redis集群操作"></a>-redis集群操作</h2><h3 id="集群-cluster"><a href="#集群-cluster" class="headerlink" title="-集群(cluster)"></a>-集群(cluster)</h3><p>CLUSTER INFO 打印集群的信息 </p>
+<p>CLUSTER NODES 列出集群当前已知的所有节点（node），以及这些节点的相关信息。  </p>
+<h3 id="节点-node"><a href="#节点-node" class="headerlink" title="-节点(node)"></a>-节点(node)</h3><p>CLUSTER MEET <ip> <port> 将 ip 和 port 所指定的节点添加到集群当中，让它成为集群的一份子。 </port></ip></p>
+<p>CLUSTER FORGET <node_id> 从集群中移除 node_id 指定的节点。 </node_id></p>
+<p>CLUSTER REPLICATE <node_id> 将当前节点设置为 node_id 指定的节点的从节点。 </node_id></p>
+<p>CLUSTER SAVECONFIG 将节点的配置文件保存到硬盘里面。  </p>
+<h3 id="槽-slot"><a href="#槽-slot" class="headerlink" title="-槽(slot)"></a>-槽(slot)</h3><p>CLUSTER ADDSLOTS <slot> [slot …] 将一个或多个槽（slot）指派（assign）给当前节点。 </slot></p>
+<p>CLUSTER DELSLOTS <slot> [slot …] 移除一个或多个槽对当前节点的指派。 </slot></p>
+<p>CLUSTER FLUSHSLOTS 移除指派给当前节点的所有槽，让当前节点变成一个没有指派任何槽的节点。</p>
+<p>CLUSTER SETSLOT <slot> NODE <node_id> 将槽 slot 指派给 node_id 指定的节点，如果槽已经指派给另一个节点，那么先让另一个节点删除该槽&gt;，然后再进行指派。 </node_id></slot></p>
+<p>CLUSTER SETSLOT <slot> MIGRATING <node_id> 将本节点的槽 slot 迁移到 node_id 指定的节点中。 </node_id></slot></p>
+<p>CLUSTER SETSLOT <slot> IMPORTING <node_id> 从 node_id 指定的节点中导入槽 slot 到本节点。 </node_id></slot></p>
+<p>CLUSTER SETSLOT <slot> STABLE 取消对槽 slot 的导入（import）或者迁移（migrate）。  </slot></p>
+<h3 id="键-key"><a href="#键-key" class="headerlink" title="-键 (key)"></a>-键 (key)</h3><p>CLUSTER KEYSLOT <key> 计算键 key 应该被放置在哪个槽上。 </key></p>
+<p>CLUSTER COUNTKEYSINSLOT <slot> 返回槽 slot 目前包含的键值对数量。 </slot></p>
+<p>CLUSTER GETKEYSINSLOT <slot> <count> 返回 count 个 slot 槽中的键。 </count></slot></p>
+<p>这些命令是集群所独有的。执行上述命令要先登录</p>
+<pre><code>[root@manage redis]# redis-cli -c -p 6382 -h 192.168.10.220    //登录 
+192.168.10.220:6382&gt; cluster info   //查看集群情况 
+cluster_state:ok 
+cluster_slots_assigned:16384 
+cluster_slots_ok:16384 
+cluster_slots_pfail:0 
+cluster_slots_fail:0 
+cluster_known_nodes:6 
+cluster_size:3 
+cluster_current_epoch:8 
+cluster_my_epoch:4 
+cluster_stats_messages_sent:82753 
+cluster_stats_messages_received:82754 
+</code></pre><h2 id="redis节点操作"><a href="#redis节点操作" class="headerlink" title="-redis节点操作"></a>-redis节点操作</h2><p>redis集群节点 增删</p>
+<h3 id="添加从节点"><a href="#添加从节点" class="headerlink" title="-添加从节点"></a>-添加从节点</h3><p>添加从节点slave(某个主节点的复制品)</p>
+<pre><code>#  ./redis-cli -h 192.168.40.145 -p 7145
 
-# vi /etc/rc.local
-su - root -c /usr/local/src/activemq141/bin/activemq start
+192.168.40.145&gt; cluster replicate 此处是主节点master的ID
 
-# vi /etc/rc.local
-su - root -c /usr/local/src/activemq149/bin/activemq start
-</code></pre><h2 id="ZooInspector监控MQ集群"><a href="#ZooInspector监控MQ集群" class="headerlink" title="-ZooInspector监控MQ集群"></a>-ZooInspector监控MQ集群</h2><p>运用ZooInspector（基于zookeeper）监控active运行状态：</p>
-<p>此处三个activemq运行的程序，可以看出我们之前部署的active集群已经推举出新的master了。</p>
-<p>其他两个从节点 只负责备份 不处理读写 只有当master挂掉以后才重新选举出master</p>
-<p><img src="https://static.oschina.net/uploads/space/2017/0228/172030_7Iht_3226688.png" alt=""></p>
-<p><img src="https://static.oschina.net/uploads/space/2017/0228/172041_OHqp_3226688.png" alt=""></p>
-<p><img src="https://static.oschina.net/uploads/space/2017/0228/172053_DqzZ_3226688.png" alt=""></p>
-<h2 id="控制台"><a href="#控制台" class="headerlink" title="-控制台"></a>-控制台</h2><p>登录控制台：账号密码为 admin/admin</p>
-<p>可以看出 我这里已经消费了的消息记录。</p>
-<p><img src="https://static.oschina.net/uploads/space/2017/0228/172610_SRkD_3226688.png" alt=""></p>
-<p>注意：</p>
-<p>在这里三个activemq集群中，挂掉一台集群可以正常运行，如果挂掉两台则不能运行了。</p>
-<p>因为activemq集群是依赖zookeeper集群的 如果zookeeper集群down掉 那么activemq集群也不能正常运行</p>
-<h2 id="结束语"><a href="#结束语" class="headerlink" title="-结束语"></a>-结束语</h2><p>在安装过程中可能会遇到一些这样那样的问题，如果解决不了请联系博主。</p>
+192.168.40.145&gt; ok
+</code></pre><p><img src="https://static.oschina.net/uploads/space/2017/0227/163920_uHEz_3226688.jpg" alt=""></p>
+<h3 id="删除从节点"><a href="#删除从节点" class="headerlink" title="-删除从节点"></a>-删除从节点</h3><p>删除从节点</p>
+<pre><code># redis-trib.rb del-node 192.168.10.220:6385 &apos;9c240333476469e8e2c8e80b089c48f389827265&apos;
+</code></pre><h3 id="删除主节点"><a href="#删除主节点" class="headerlink" title="-删除主节点"></a>-删除主节点</h3><p>删除主节点<br>如果主节点有从节点，将从节点转移到其他主节点<br>如果主节点有slot，去掉分配的slot，然后在删除主节点</p>
+<pre><code># redis-trib.rb reshard 192.168.10.219:6378 //取消分配的slot,下面是主要过程 
+
+How many slots do you want to move (from 1 to 16384)? 1000 //被删除master的所有slot数量 
+What is the receiving node ID? 5d8ef5a7fbd72ac586bef04fa6de8a88c0671052 //接收6378节点slot的master 
+Please enter all the source node IDs. 
+ Type &apos;all&apos; to use all the nodes as source nodes for the hash slots. 
+ Type &apos;done&apos; once you entered all the source nodes IDs. 
+Source node #1:03ccad2ba5dd1e062464bc7590400441fafb63f2 //被删除master的node-id 
+Source node #2:done  
+
+Do you want to proceed with the proposed reshard plan (yes/no)? yes //取消slot后，reshard 
+</code></pre><p>新增master节点后，也进行了这一步操作，当时是分配，现在去掉。反着的。</p>
+<pre><code># redis-trib.rb del-node 192.168.10.219:6378 &apos;03ccad2ba5dd1e062464bc7590400441fafb63f2&apos; 
+</code></pre><p>改变从节点的master</p>
+<p>//查看一下6378的从节点</p>
+<pre><code># redis-cli -p 6378 cluster nodes | grep slave | grep 03ccad2ba5dd1e062464bc7590400441fafb63f2
+</code></pre><p>//将6385加入到新的master</p>
+<pre><code># redis-cli -c -p 6385 -h 192.168.10.220
+192.168.10.220:6385&gt; cluster replicate 5d8ef5a7fbd72ac586bef04fa6de8a88c0671052  //新master的node id
+OK
+192.168.10.220:6385&gt; quit
+</code></pre><p>//查看新master的slave</p>
+<pre><code># redis-cli -p 6379 cluster nodes | grep slave | grep 5d8ef5a7fbd72ac586bef04fa6de8a88c0671052
+</code></pre><p>查看一下，集群情况</p>
+<pre><code># /usr/local/redis3/src/redis-trib.rb check 192.168.40.145:7145
+</code></pre><p>可以看到M为主节点，S为从节点</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0227/164741_O8iW_3226688.png" alt=""></p>
+<p>redis cluster命令行（redis-cli -h 192.168.40.145 -p 7145）</p>
+<p>1，新配置二个测试节点</p>
+<pre><code># cd /etc/redis 
+</code></pre><p>//新增配置 </p>
+<pre><code># cp redis-6379.conf redis-6378.conf &amp;&amp; sed -i &quot;s/6379/6378/g&quot; redis-6378.conf 
+# cp redis-6382.conf redis-6385.conf &amp;&amp; sed -i &quot;s/6382/6385/g&quot; redis-6385.conf 
+</code></pre><p>//启动 </p>
+<pre><code># redis-server /etc/redis/redis-6385.conf &gt; /var/log/redis/redis-6385.log 2&gt;&amp;1 &amp; 
+# redis-server /etc/redis/redis-6378.conf &gt; /var/log/redis/redis-6378.log 2&gt;&amp;1 &amp; 
+</code></pre><h3 id="添加主节点"><a href="#添加主节点" class="headerlink" title="-添加主节点"></a>-添加主节点</h3><p>添加主节点</p>
+<pre><code># redis-trib.rb add-node 192.168.10.219:6378 192.168.10.219:6379 
+</code></pre><p>注释：</p>
+<p>192.168.10.219:6378是新增的节点</p>
+<p>192.168.10.219:6379集群任一个旧节点</p>
+<h3 id="添加从节点-1"><a href="#添加从节点-1" class="headerlink" title="-添加从节点"></a>-添加从节点</h3><pre><code># redis-trib.rb add-node --slave --master-id 03ccad2ba5dd1e062464bc7590400441fafb63f2 192.168.10.220:6385 192.168.10.219:6379 
+注释：
+--slave，表示添加的是从节点
+--master-id 03ccad2ba5dd1e062464bc7590400441fafb63f2,主节点的node id，在这里是前面新添加的6378的node id
+192.168.10.220:6385,新节点
+192.168.10.219:6379集群任一个旧节点
+</code></pre><h3 id="从新分配slot"><a href="#从新分配slot" class="headerlink" title="-从新分配slot"></a>-从新分配slot</h3><p>重新分配slot</p>
+<pre><code># redis-trib.rb reshard 192.168.10.219:6378 //下面是主要过程 
+
+How many slots do you want to move (from 1 to 16384)? 1000 //设置slot数1000 
+What is the receiving node ID? 03ccad2ba5dd1e062464bc7590400441fafb63f2 //新节点node id 
+Please enter all the source node IDs. 
+ Type &apos;all&apos; to use all the nodes as source nodes for the hash slots. 
+ Type &apos;done&apos; once you entered all the source nodes IDs. 
+Source node #1:all //表示全部节点重新洗牌 
+Do you want to proceed with the proposed reshard plan (yes/no)? yes //确认重新分 
+</code></pre><p>新增加的主节点，是没有slots的，</p>
+<pre><code>M: 03ccad2ba5dd1e062464bc7590400441fafb63f2 192.168.10.219:6378
+slots:0-332,5461-5794,10923-11255 (0 slots) master
+主节点如果没有slots的话，存取数据就都不会被选中。
+可以把分配的过程理解成打扑克牌，all表示大家重新洗牌；输入某个主节点的node id，然后在输入done的话，就好比从某个节点，抽牌。
+</code></pre><h2 id="结束语"><a href="#结束语" class="headerlink" title="-结束语"></a>-结束语</h2><p>在安装过程中可能会遇到一些这样那样的问题，如果解决不了请联系博主。</p>
 <h3 id="联系方式"><a href="#联系方式" class="headerlink" title="-联系方式"></a>-联系方式</h3><p>个人QQ: 913545731 (请注明”博客疑问”)</p>
 <p>Spring Cloud中国社区① : 415028731</p>
 <p>Spring Cloud中国社区⑤ : 36959900</p>
@@ -294,11 +522,7 @@ su - root -c /usr/local/src/activemq149/bin/activemq start
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">activeMQ</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ZooInspector</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
         		</li>
       		
 		</ul>
@@ -354,7 +578,7 @@ su - root -c /usr/local/src/activemq149/bin/activemq start
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://linzhenc.github.io/2017/08/05/linux安装activeMQ 并集群（ZooInspector+activeMQ）/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://linzhenc.github.io/2017/08/05/linux安装Redis集群（三主三备）/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -368,18 +592,9 @@ su - root -c /usr/local/src/activemq149/bin/activemq start
   
 <nav id="article-nav">
   
-    <a href="/2017/08/05/linux安装zookeeper集群/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          linux安装zookeeper集群
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/08/05/linux安装keepalived+nginx(2) --nginx安装/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">linux安装keepalived+nginx(2) --nginx安装</div>
+    <a href="/2017/08/05/linux安装zookeeper集群/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux安装zookeeper集群</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -406,7 +621,7 @@ su - root -c /usr/local/src/activemq149/bin/activemq start
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#activeMQ"><span class="toc-number">1.</span> <span class="toc-text">-activeMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">-安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载"><span class="toc-number">3.1.</span> <span class="toc-text">-下载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解压"><span class="toc-number">3.2.</span> <span class="toc-text">-解压</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群配置"><span class="toc-number">4.</span> <span class="toc-text">-集群配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#管控台端口"><span class="toc-number">4.1.</span> <span class="toc-text">-管控台端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#activemq-xml"><span class="toc-number">4.2.</span> <span class="toc-text">-activemq.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开放端口"><span class="toc-number">4.3.</span> <span class="toc-text">-开放端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#启动集群"><span class="toc-number">5.</span> <span class="toc-text">-启动集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ZooInspector监控MQ集群"><span class="toc-number">6.</span> <span class="toc-text">-ZooInspector监控MQ集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#控制台"><span class="toc-number">7.</span> <span class="toc-text">-控制台</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">8.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">8.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#redis"><span class="toc-number">1.</span> <span class="toc-text">-redis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">-安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#集群配置"><span class="toc-number">4.</span> <span class="toc-text">-集群配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建集群"><span class="toc-number">5.</span> <span class="toc-text">-创建集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装ruby、rubygems"><span class="toc-number">5.1.</span> <span class="toc-text">-安装ruby、rubygems</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装gem"><span class="toc-number">5.2.</span> <span class="toc-text">-安装gem</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis集群操作"><span class="toc-number">6.</span> <span class="toc-text">-redis集群操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#集群-cluster"><span class="toc-number">6.1.</span> <span class="toc-text">-集群(cluster)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#节点-node"><span class="toc-number">6.2.</span> <span class="toc-text">-节点(node)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#槽-slot"><span class="toc-number">6.3.</span> <span class="toc-text">-槽(slot)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#键-key"><span class="toc-number">6.4.</span> <span class="toc-text">-键 (key)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#redis节点操作"><span class="toc-number">7.</span> <span class="toc-text">-redis节点操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#添加从节点"><span class="toc-number">7.1.</span> <span class="toc-text">-添加从节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除从节点"><span class="toc-number">7.2.</span> <span class="toc-text">-删除从节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#删除主节点"><span class="toc-number">7.3.</span> <span class="toc-text">-删除主节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加主节点"><span class="toc-number">7.4.</span> <span class="toc-text">-添加主节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#添加从节点-1"><span class="toc-number">7.5.</span> <span class="toc-text">-添加从节点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从新分配slot"><span class="toc-number">7.6.</span> <span class="toc-text">-从新分配slot</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">8.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">8.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
