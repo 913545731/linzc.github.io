@@ -8,13 +8,13 @@
   <link rel="dns-prefetch" href="http://linzhenc.github.io">
   <title>学习Spring Cloud分布式架构--Zipkin（brave-okhttp）实现监控 | linzc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Zipkin 是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper 的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据，用来追踪微服务架构下的系统延时问题。   -nginx-准备工作-spring boot-STS idea -zipkin界面安装获取zipkin 运行界面包">
+  <meta name="description" content="Zipkin 是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper 的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据，用来追踪微服务架构下的系统延时问题。">
 <meta name="keywords" content="Spring Cloud,Spring Boot,Zipkin,brave,okhttp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="学习Spring Cloud分布式架构--Zipkin（brave-okhttp）实现监控">
 <meta property="og:url" content="http://linzhenc.github.io/2017/08/06/Spring Cloud入门--Zipkin（brave-okhttp）实现监控/index.html">
 <meta property="og:site_name" content="linzc的博客">
-<meta property="og:description" content="Zipkin 是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper 的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据，用来追踪微服务架构下的系统延时问题。   -nginx-准备工作-spring boot-STS idea -zipkin界面安装获取zipkin 运行界面包">
+<meta property="og:description" content="Zipkin 是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper 的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据，用来追踪微服务架构下的系统延时问题。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/111357_EuDc_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/111530_QUp5_3226688.png">
@@ -29,10 +29,10 @@
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/114141_y2Yo_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/114148_rvCq_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/114215_obiK_3226688.png">
-<meta property="og:updated_time" content="2017-08-06T13:44:49.331Z">
+<meta property="og:updated_time" content="2017-08-06T13:46:40.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习Spring Cloud分布式架构--Zipkin（brave-okhttp）实现监控">
-<meta name="twitter:description" content="Zipkin 是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper 的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据，用来追踪微服务架构下的系统延时问题。   -nginx-准备工作-spring boot-STS idea -zipkin界面安装获取zipkin 运行界面包">
+<meta name="twitter:description" content="Zipkin 是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper 的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据，用来追踪微服务架构下的系统延时问题。">
 <meta name="twitter:image" content="https://static.oschina.net/uploads/space/2017/0419/111357_EuDc_3226688.png">
   
     <link rel="alternative" href="/atom.xml" title="linzc的博客" type="application/atom+xml">
@@ -180,10 +180,9 @@
     <div class="article-entry" itemprop="articleBody">
       
         <blockquote>
-<p>Zipkin 是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper 的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据，用来追踪微服务架构下的系统延时问题。</p>
-</blockquote>
-<!-- zipkin -->
-<h2 id="nginx"><a href="#nginx" class="headerlink" title="-nginx"></a>-nginx</h2><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p>-spring boot<br>-STS idea</p>
+<p>Zipkin 是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper 的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据，用来追踪微服务架构下的系统延时问题。<br><a id="more"></a></p>
+<h2 id="zipkin"><a href="#zipkin" class="headerlink" title="-zipkin"></a>-zipkin</h2></blockquote>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p>-spring boot<br>-STS idea</p>
 <h2 id="zipkin界面安装"><a href="#zipkin界面安装" class="headerlink" title="-zipkin界面安装"></a>-zipkin界面安装</h2><p>获取zipkin 运行界面包</p>
 <p>如果你不使用zipkin的jar包运行，你也可以用spring boot来构建zipkin的服务。</p>
 <p>在官网下载服务jar包</p>
@@ -622,7 +621,7 @@ public OkHttpClient okHttpClient(Brave brave){
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#nginx"><span class="toc-number">1.</span> <span class="toc-text">-nginx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zipkin界面安装"><span class="toc-number">3.</span> <span class="toc-text">-zipkin界面安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java代码实现监控"><span class="toc-number">4.</span> <span class="toc-text">-java代码实现监控</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pom-xml配置"><span class="toc-number">4.1.</span> <span class="toc-text">- pom.xml配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序具体实现"><span class="toc-number">4.2.</span> <span class="toc-text">- 程序具体实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">5.</span> <span class="toc-text">-测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">6.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">6.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#zipkin"><span class="toc-number">1.</span> <span class="toc-text">-zipkin</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#zipkin界面安装"><span class="toc-number">3.</span> <span class="toc-text">-zipkin界面安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java代码实现监控"><span class="toc-number">4.</span> <span class="toc-text">-java代码实现监控</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pom-xml配置"><span class="toc-number">4.1.</span> <span class="toc-text">- pom.xml配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#程序具体实现"><span class="toc-number">4.2.</span> <span class="toc-text">- 程序具体实现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#测试"><span class="toc-number">5.</span> <span class="toc-text">-测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">6.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">6.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
