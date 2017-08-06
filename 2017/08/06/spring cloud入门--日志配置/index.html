@@ -6,18 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://linzhenc.github.io">
-  <title>Tag: zookeeper | linzc的博客</title>
+  <title>学习Spring Cloud分布式框架--日志配置 | linzc的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一天进步一点。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="linzc的博客">
-<meta property="og:url" content="http://linzhenc.github.io/tags/zookeeper/index.html">
+  <meta name="description" content="Spring Cloud日志配置可以使用Log4j或者logback，但是官方推荐使用logback。logback是log4j作者出的，用来替代log4j的。我们使用logback来处理日志记录。">
+<meta name="keywords" content="Spring Cloud,Spring Boot,logback">
+<meta property="og:type" content="article">
+<meta property="og:title" content="学习Spring Cloud分布式框架--日志配置">
+<meta property="og:url" content="http://linzhenc.github.io/2017/08/06/spring cloud入门--日志配置/index.html">
 <meta property="og:site_name" content="linzc的博客">
-<meta property="og:description" content="一天进步一点。">
+<meta property="og:description" content="Spring Cloud日志配置可以使用Log4j或者logback，但是官方推荐使用logback。logback是log4j作者出的，用来替代log4j的。我们使用logback来处理日志记录。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0519/111533_ST5E_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0519/111633_xDCh_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0519/111730_f15h_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0519/111753_fi8H_3226688.png">
+<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0519/111824_j7Nz_3226688.png">
+<meta property="og:updated_time" content="2017-08-06T12:52:42.082Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linzc的博客">
-<meta name="twitter:description" content="一天进步一点。">
+<meta name="twitter:title" content="学习Spring Cloud分布式框架--日志配置">
+<meta name="twitter:description" content="Spring Cloud日志配置可以使用Log4j或者logback，但是官方推荐使用logback。logback是log4j作者出的，用来替代log4j的。我们使用logback来处理日志记录。">
+<meta name="twitter:image" content="https://static.oschina.net/uploads/space/2017/0519/111533_ST5E_3226688.png">
   
     <link rel="alternative" href="/atom.xml" title="linzc的博客" type="application/atom+xml">
   
@@ -143,64 +151,287 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-spring cloud入门--日志配置" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/08/05/linux安装zookeeper集群/" class="archive-article-date">
-  	<time datetime="2017-08-05T11:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-05</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/08/05/linux安装zookeeper集群/">linux安装zookeeper集群</a>
+    <h1 class="article-title" itemprop="name">
+      学习Spring Cloud分布式框架--日志配置
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2017/08/06/spring cloud入门--日志配置/" class="archive-article-date">
+  	<time datetime="2017-08-06T09:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Spring Cloud日志配置可以使用Log4j或者logback，但是官方推荐使用logback。logback是log4j作者出的，用来替代log4j的。我们使用logback来处理日志记录。<br><a id="more"></a></p>
+<h2 id="logback"><a href="#logback" class="headerlink" title="-logback"></a>-logback</h2><p>在spring boot项目里面 需要配置logback是非常简单的。</p>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p>-spring-cloud-starter-sleuth</p>
+<h2 id="logback配置"><a href="#logback配置" class="headerlink" title="-logback配置"></a>-logback配置</h2><p>第一步确认依赖包里面有logback的包，我这里引入的是spring-cloud-starter-sleuth包，它里面已经集成了logback的包</p>
+</blockquote>
+<p><img src="https://static.oschina.net/uploads/space/2017/0519/111533_ST5E_3226688.png" alt=""></p>
+<p>下一步我们在配置文件中加入相关配置信息。在bootstrap.properties中加入下面的配置log的文件位置。</p>
+<pre><code>logging.file=logs/${spring.application.name}.log
+</code></pre><p><strong>注意：</strong>关于上面这句代码我有话要说啊，如果你想在Spring Boot Admin中查看到应用的日志信息，那么你就需要注意这句代码了（logging.file=），因为他默认的配置就是这个，他只会读取你程序运行保存在本地的，且名字为logs/${spring.application.name}.log的.Log文件</p>
+<p>就这么简单。 下面我们直接运行程序，就会在项目目录下生成相关的日志文件（logs/应用名.log）</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0519/111633_xDCh_3226688.png" alt=""></p>
+<p>下一步我们还可以控制，日志级别，如下图所示我们控制的日志级别为info，日志级别可根据自己的需求进行配置</p>
+<pre><code>logging.level.org.springframework.boot=info
+</code></pre><p>如果这种默认日志配置不能满足需求，那我们可以配置logback-spring.xml，这个logback-spring.xml项目启动的时候是默认读取的。在这个xml里面 我们可以根据自己的需求进行配置</p>
+<p>我这个logback-spring.xml配置的大概功能是记录日志，当日志大于10MB时，就自动分出去，并在文件名上加上了时间。</p>
+<p>${LOG_FILE}是读取properties里面的logging.file的值</p>
+<p><strong>bootstrap.properties</strong></p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0519/111730_f15h_3226688.png" alt=""></p>
+<p><strong>logback-spring.xml</strong></p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0519/111753_fi8H_3226688.png" alt=""></p>
+<p>下面为具体的配置代码</p>
+<pre><code>&lt;configuration&gt;
+    &lt;springProperty scope=&quot;context&quot; name=&quot;app_name&quot; source=&quot;spring.application.name&quot; /&gt;
+    &lt;include resource=&quot;org/springframework/boot/logging/logback/defaults.xml&quot;/&gt;
+    &lt;include resource=&quot;org/springframework/boot/logging/logback/console-appender.xml&quot;/&gt;
+    &lt;jmxConfigurator/&gt;
+        &lt;appender name=&quot;rollingFile&quot; class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+         &lt;file&gt;${LOG_FILE}&lt;/file&gt;
+            &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+                  &lt;fileNamePattern&gt;${LOG_FILE}.%d{yyyy-MM-dd}.%i&lt;/fileNamePattern&gt;
+                &lt;MaxFileSize&gt;10MB&lt;/MaxFileSize&gt;
+            &lt;/rollingPolicy&gt;
+               &lt;encoder&gt;
+            &lt;pattern&gt;%d{yyyy-MM-dd} %d{HH:mm:ss.SSS}  [%thread] %-5level %logger{36} - %msg%n&lt;/pattern&gt;
+        &lt;/encoder&gt;
+
+        &lt;/appender&gt;
+        &lt;root level=&quot;INFO&quot;&gt;
+            &lt;appender-ref ref=&quot;rollingFile&quot;/&gt;
+            &lt;appender-ref ref=&quot;CONSOLE&quot;/&gt;
+        &lt;/root&gt;
+&lt;/configuration&gt;
+</code></pre><p>除此之外还有一些参考资料。</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0519/111824_j7Nz_3226688.png" alt=""></p>
+<p>实现代码</p>
+<pre><code>&lt;configuration&gt;
+&lt;springProperty scope=&quot;context&quot; name=&quot;app_name&quot; source=&quot;spring.application.name&quot; /&gt;
+&lt;include resource=&quot;org/springframework/boot/logging/logback/defaults.xml&quot;/&gt;
+&lt;property name=&quot;LOG_FILE&quot; value=&quot;${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-/logs}}/app.log}&quot;/&gt;
+&lt;include resource=&quot;org/springframework/boot/logging/logback/console-appender.xml&quot;/&gt;
+&lt;springProfile name=&quot;default&quot;&gt;
+    &lt;root level=&quot;INFO&quot;&gt;
+        &lt;appender-ref ref=&quot;CONSOLE&quot;/&gt;
+    &lt;/root&gt;
+&lt;/springProfile&gt;
+&lt;jmxConfigurator/&gt;
+&lt;springProfile name=&quot;test,prod&quot;&gt;
+    &lt;appender name=&quot;rollingFile&quot;
+              class=&quot;ch.qos.logback.core.rolling.RollingFileAppender&quot;&gt;
+        &lt;file&gt;${LOG_PATH}/${LOG_FILE}&lt;/file&gt;
+        &lt;rollingPolicy class=&quot;ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy&quot;&gt;
+            &lt;fileNamePattern&gt;${LOG_PATH}/${LOG_FILE}.%d{yyyy-MM-dd}.%i&lt;/fileNamePattern&gt;
+            &lt;MaxFileSize&gt;10MB&lt;/MaxFileSize&gt;
+        &lt;/rollingPolicy&gt;
+        &lt;!--&lt;encoder class=&quot;net.logstash.logback.encoder.LogstashEncoder&quot;&gt;--&gt;
+            &lt;!--&lt;includeCallerInfo&gt;true&lt;/includeCallerInfo&gt;--&gt;
+        &lt;!--&lt;/encoder&gt;--&gt;
+        &lt;encoder class=&quot;net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder&quot;&gt;
+            &lt;providers&gt;
+                &lt;timestamp&gt;
+                    &lt;timeZone&gt;UTC&lt;/timeZone&gt;
+                &lt;/timestamp&gt;
+                &lt;pattern&gt;
+                    &lt;pattern&gt;
+                        {
+                        &quot;severity&quot;: &quot;%level&quot;,
+                        &quot;service&quot;: &quot;${app_name:-}&quot;,
+                        &quot;trace&quot;: &quot;%X{X-B3-TraceId:-}&quot;,
+                        &quot;span&quot;: &quot;%X{X-B3-SpanId:-}&quot;,
+                        &quot;exportable&quot;: &quot;%X{X-Span-Export:-}&quot;,
+                        &quot;pid&quot;: &quot;${PID:-}&quot;,
+                        &quot;thread&quot;: &quot;%thread&quot;,
+                        &quot;class&quot;: &quot;%logger{40}&quot;,
+                        &quot;rest&quot;: &quot;%message&quot;
+                        }
+                    &lt;/pattern&gt;
+                &lt;/pattern&gt;
+            &lt;/providers&gt;
+        &lt;/encoder&gt;
+    &lt;/appender&gt;
+    &lt;root level=&quot;INFO&quot;&gt;
+        &lt;appender-ref ref=&quot;rollingFile&quot;/&gt;
+        &lt;appender-ref ref=&quot;CONSOLE&quot;/&gt;
+    &lt;/root&gt;
+&lt;/springProfile&gt;
+</code></pre><p></p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="-结束语"></a>-结束语</h2><p>在安装过程中可能会遇到一些这样那样的问题，如果解决不了请联系博主。</p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="-联系方式"></a>-联系方式</h3><p>个人QQ: 913545731 (请注明”博客疑问”)</p>
+<p>Spring Cloud中国社区① : 415028731</p>
+<p>Spring Cloud中国社区⑤ : 36959900</p>
+<hr>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Spring Cloud</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">zookeeper</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring Boot</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">logback</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://linzhenc.github.io/2017/08/06/spring cloud入门--日志配置/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2017/08/05/linux安装Redis集群（三主三备）/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">linux安装Redis集群（三主三备）</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#logback"><span class="toc-number">1.</span> <span class="toc-text">-logback</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#准备工作"><span class="toc-number">2.</span> <span class="toc-text">-准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#logback配置"><span class="toc-number">3.</span> <span class="toc-text">-logback配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结束语"><span class="toc-number">4.</span> <span class="toc-text">-结束语</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联系方式"><span class="toc-number">4.1.</span> <span class="toc-text">-联系方式</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
 
 
           </div>
@@ -223,9 +454,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: true,
 		toc_hide_index: false,
