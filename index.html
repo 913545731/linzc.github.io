@@ -229,6 +229,389 @@
 
 
   
+    <article id="post-Spring Cloud入门--Zipkin（brave-okhttp）实现监控" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/06/Spring Cloud入门--Zipkin（brave-okhttp）实现监控/">学习Spring Cloud分布式架构--Zipkin（brave-okhttp）实现监控</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/06/Spring Cloud入门--Zipkin（brave-okhttp）实现监控/" class="archive-article-date">
+  	<time datetime="2017-08-06T08:23:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>Zipkin 是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper 的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据，用来追踪微服务架构下的系统延时问题。</p>
+</blockquote>
+<!-- zipkin -->
+<h2 id="nginx"><a href="#nginx" class="headerlink" title="-nginx"></a>-nginx</h2><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="-准备工作"></a>-准备工作</h2><p>-spring boot<br>-STS idea</p>
+<h2 id="zipkin界面安装"><a href="#zipkin界面安装" class="headerlink" title="-zipkin界面安装"></a>-zipkin界面安装</h2><p>获取zipkin 运行界面包</p>
+<p>如果你不使用zipkin的jar包运行，你也可以用spring boot来构建zipkin的服务。</p>
+<p>在官网下载服务jar包</p>
+<p>进入官网 <a href="http://zipkin.io/pages/quickstart.html，之后使用命令启动服务jar即可。" target="_blank" rel="external">http://zipkin.io/pages/quickstart.html，之后使用命令启动服务jar即可。</a></p>
+<p>官方提供了jar包获取办法，还有linux上通过weget来获取zipkin的jar包。</p>
+<p>点击箭头所指的连接，即可下载jar包。下面红色框内的为linux下的jar包获取办法。</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/111357_EuDc_3226688.png" alt=""></p>
+<p>运行官方jar包，并查看zipkin界面</p>
+<p>运行官方下载的jar包，如下图所示</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/111530_QUp5_3226688.png" alt=""></p>
+<p> zipkin界面测试</p>
+<p>运行成功以后，我们即可在浏览器输入 <a href="http://localhost:9411，即可看到zipkin的监控页面。" target="_blank" rel="external">http://localhost:9411，即可看到zipkin的监控页面。</a></p>
+<p>注意:博主这个截图是已经有服务在监控了，你的没有服务监控 所以都是空的。</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/111710_736N_3226688.png" alt=""></p>
+<h2 id="java代码实现监控"><a href="#java代码实现监控" class="headerlink" title="-java代码实现监控"></a>-java代码实现监控</h2><p>该程序基于maven，不会maven的同学先去看看哈，使用的话还是比较简单的。</p>
+<h3 id="pom-xml配置"><a href="#pom-xml配置" class="headerlink" title="- pom.xml配置"></a>- pom.xml配置</h3><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot;
+     xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+     xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
+&lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+
+&lt;groupId&gt;com.jg.zipkin&lt;/groupId&gt;
+&lt;artifactId&gt;zipkin-brave&lt;/artifactId&gt;
+&lt;packaging&gt;jar&lt;/packaging&gt;
+
+
+&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;1.3.6.RELEASE&lt;/version&gt;
+&lt;/parent&gt;
+
+
+
+&lt;!-- https://mvnrepository.com/artifact/io.zipkin.brave/brave-core --&gt;
+&lt;dependencies&gt;
+
+     &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.zipkin.brave&lt;/groupId&gt;
+        &lt;artifactId&gt;brave-core&lt;/artifactId&gt;
+        &lt;version&gt;3.9.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.zipkin.brave&lt;/groupId&gt;
+        &lt;artifactId&gt;brave-http&lt;/artifactId&gt;
+        &lt;version&gt;3.9.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.zipkin.brave&lt;/groupId&gt;
+        &lt;artifactId&gt;brave-spancollector-http&lt;/artifactId&gt;
+        &lt;version&gt;3.9.0&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.zipkin.brave&lt;/groupId&gt;
+        &lt;artifactId&gt;brave-web-servlet-filter&lt;/artifactId&gt;
+        &lt;version&gt;3.9.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.zipkin.brave&lt;/groupId&gt;
+        &lt;artifactId&gt;brave-okhttp&lt;/artifactId&gt;
+        &lt;version&gt;3.9.0&lt;/version&gt;
+    &lt;/dependency&gt;
+
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.slf4j&lt;/groupId&gt;
+        &lt;artifactId&gt;slf4j-api&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.apache.httpcomponents&lt;/groupId&gt;
+        &lt;artifactId&gt;httpclient&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+
+&lt;/dependencies&gt;
+
+&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;false&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+        &lt;id&gt;central&lt;/id&gt;
+        &lt;name&gt;bintray&lt;/name&gt;
+        &lt;url&gt;http://jcenter.bintray.com&lt;/url&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;
+
+
+&lt;!-- Package as an executable jar --&gt;
+&lt;build&gt;
+    &lt;finalName&gt;server1&lt;/finalName&gt;
+
+    &lt;plugins&gt;
+        &lt;plugin&gt;
+            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;
+        &lt;/plugin&gt;
+    &lt;/plugins&gt;
+&lt;/build&gt;
+</code></pre><p></p>
+<h3 id="程序具体实现"><a href="#程序具体实现" class="headerlink" title="- 程序具体实现"></a>- 程序具体实现</h3><p>新建HomeController类</p>
+<pre><code>package com.jg.zipkin.controller;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.io.IOException;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+@RestController
+@RequestMapping(&quot;/&quot;)
+public class HomeController {
+
+@Autowired
+private OkHttpClient client;
+
+private  Random random = new Random();
+
+@RequestMapping(&quot;start&quot;)
+public String start() throws InterruptedException, IOException {
+    int sleep= random.nextInt(100);
+    TimeUnit.MILLISECONDS.sleep(sleep);
+    Request request = new Request.Builder().url(&quot;http://localhost:9090/foo&quot;).get().build();
+    Response response = client.newCall(request).execute();
+    return &quot; [service1 sleep &quot; + sleep+&quot; ms]&quot; + response.body().toString();
+}
+
+
+@RequestMapping(&quot;foo&quot;)
+public String foo() throws InterruptedException, IOException {
+    int sleep= random.nextInt(100);
+    TimeUnit.MILLISECONDS.sleep(sleep);
+    Request request = new Request.Builder().url(&quot;http://localhost:9091/bar&quot;).get().build();  //service3
+    Response response = client.newCall(request).execute();
+    String result = response.body().string();
+    request = new Request.Builder().url(&quot;http://localhost:9092/tar&quot;).get().build();  //service4
+    response = client.newCall(request).execute();
+    result += response.body().string();
+    return &quot; [service2 sleep &quot; + sleep+&quot; ms]&quot; + result;
+}
+
+
+@RequestMapping(&quot;bar&quot;)
+public String bar() throws InterruptedException, IOException {  //service3 method
+    int sleep= random.nextInt(100);
+    TimeUnit.MILLISECONDS.sleep(sleep);
+    return &quot; [service3 sleep &quot; + sleep+&quot; ms]&quot;;
+}
+
+@RequestMapping(&quot;tar&quot;)
+public String tar() throws InterruptedException, IOException { //service4 method
+    int sleep= random.nextInt(100);
+    TimeUnit.MILLISECONDS.sleep(sleep);
+    return &quot; [service4 sleep &quot; + sleep+&quot; ms]&quot;;
+}
+
+}
+</code></pre><p>新建Application类<br>    package com.jg.zipkin;</p>
+<pre><code>import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+
+@SpringBootApplication
+public class Application {
+
+   public static void main(String[] args) {
+    SpringApplication app = new SpringApplication(Application.class);
+    app.run(args);
+
+    }
+}
+</code></pre><p>新建 ZipkinConfig 类</p>
+<p>这个类为zipkin的核心类</p>
+<pre><code>package com.jg.zipkin;
+
+import okhttp3.OkHttpClient;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.github.kristofa.brave.Brave;
+import com.github.kristofa.brave.EmptySpanCollectorMetricsHandler;
+import com.github.kristofa.brave.Sampler;
+import com.github.kristofa.brave.SpanCollector;
+import com.github.kristofa.brave.http.DefaultSpanNameProvider;
+import com.github.kristofa.brave.http.HttpSpanCollector;
+import com.github.kristofa.brave.okhttp.BraveOkHttpRequestResponseInterceptor;
+import com.github.kristofa.brave.servlet.BraveServletFilter;
+
+
+@Configuration
+public class ZipkinConfig {
+
+@Autowired
+private ZipkinProperties properties;
+
+
+@Bean
+public SpanCollector spanCollector() {
+    HttpSpanCollector.Config config = HttpSpanCollector.Config.builder()
+                                                          .connectTimeout(5000)//5s，默认10s
+                                                          .readTimeout(6000)//5s，默认60s
+                                                          .compressionEnabled(false)//默认false，span在transport之前是否会被gzipped。
+                                                          .flushInterval(1)//1s
+                                                          .build();
+
+    return HttpSpanCollector.create(&quot;http://10.114.72.122:1011&quot;, config, new EmptySpanCollectorMetricsHandler());
+}
+
+
+@Bean
+public Brave brave(SpanCollector spanCollector){
+    Brave.Builder builder = new Brave.Builder(&quot;server1&quot;);  //指定state
+    builder.spanCollector(spanCollector);
+    builder.traceSampler(Sampler.ALWAYS_SAMPLE);
+    Brave brave = builder.build();
+    return brave;
+}
+
+@Bean
+public BraveServletFilter braveServletFilter(Brave brave){
+    BraveServletFilter filter = new BraveServletFilter(brave.serverRequestInterceptor(),brave.serverResponseInterceptor(),new DefaultSpanNameProvider());
+    return filter;
+}
+
+@Bean
+public OkHttpClient okHttpClient(Brave brave){
+    OkHttpClient client = new OkHttpClient.Builder()
+            .addInterceptor(new BraveOkHttpRequestResponseInterceptor(brave.clientRequestInterceptor(), brave.clientResponseInterceptor(), new DefaultSpanNameProvider()))
+            .build();
+    return client;
+    }
+}
+</code></pre><p>配置端口号</p>
+<p>在application.properties中配置</p>
+<pre><code>server.port=8080
+</code></pre><p>按照上面的配置再配置三个服务，基础配置和上面一模一样，只用修改分端口号 和 服务名就可以</p>
+<p>上面的讲解的服务名为server1，端口号为8080的服务</p>
+<p>接下来配置其他三个服务：</p>
+<p>server2：</p>
+<p>服务名在ZipkinConfig 类中，修改服务名</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/113610_yxOT_3226688.png" alt=""></p>
+<p>端口号修改如下：</p>
+<pre><code>server.port=9090
+</code></pre><p>server3：</p>
+<p>服务名在ZipkinConfig 类中，修改服务名</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/113649_NFG3_3226688.png" alt=""></p>
+<p>端口号修改如下：</p>
+<pre><code>server.port=9091
+</code></pre><p>server4：</p>
+<p>服务名在ZipkinConfig 类中，修改服务名</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/113718_DMm9_3226688.png" alt=""></p>
+<p>端口号修改如下：</p>
+<pre><code>server.port=9092
+</code></pre><h2 id="测试"><a href="#测试" class="headerlink" title="-测试"></a>-测试</h2><p>分别启动四个服务。</p>
+<p>访问：<a href="http://localhost:8080/start" target="_blank" rel="external">http://localhost:8080/start</a></p>
+<p>得到如下访问返回值（多访问几次）：</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/113821_2Dzz_3226688.png" alt=""></p>
+<p>我们在回到zipkin的ui上：</p>
+<p>就能看到我们的四个服务</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/113940_6txL_3226688.png" alt=""></p>
+<p>在UI上选择相应的服务，选择对应的时间，点击Find即可得到响应的请求信息，</p>
+<p>如下图所示。</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/114019_ChPK_3226688.png" alt=""></p>
+<p>具体显示信息：</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/114124_sYiZ_3226688.png" alt=""></p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/114141_y2Yo_3226688.png" alt=""></p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/114148_rvCq_3226688.png" alt=""></p>
+<p>在zipkin的ui界面点击头部导航条中的Dependencies，选择相应时间，点击analyze，</p>
+<p>即可得到如下图所示的关联关系</p>
+<p><img src="https://static.oschina.net/uploads/space/2017/0419/114215_obiK_3226688.png" alt=""></p>
+<p>示例代码地址:</p>
+<p><a href="https://github.com/913545731/springcloud_demo/tree/master/springcloud_zipkin_brave" target="_blank" rel="external">https://github.com/913545731/springcloud_demo/tree/master/springcloud_zipkin_brave</a></p>
+<h2 id="结束语"><a href="#结束语" class="headerlink" title="-结束语"></a>-结束语</h2><p>在安装过程中可能会遇到一些这样那样的问题，如果解决不了请联系博主。</p>
+<h3 id="联系方式"><a href="#联系方式" class="headerlink" title="-联系方式"></a>-联系方式</h3><p>个人QQ: 913545731 (请注明”博客疑问”)</p>
+<p>Spring Cloud中国社区① : 415028731</p>
+<p>Spring Cloud中国社区⑤ : 36959900</p>
+<hr>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Spring Cloud</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Spring Boot</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Zipkin</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">brave</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">okhttp</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/06/Spring Cloud入门--Zipkin（brave-okhttp）实现监控/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-linux安装Redis集群（三主三备）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -861,6 +1244,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">logback</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Zipkin</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">brave</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">okhttp</a>
               </li>
             
             <div class="clearfix"></div>
