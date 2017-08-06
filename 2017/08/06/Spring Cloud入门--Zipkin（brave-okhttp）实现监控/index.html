@@ -20,7 +20,6 @@
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/111530_QUp5_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/111710_736N_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/113610_yxOT_3226688.png">
-<meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/113649_NFG3_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/113718_DMm9_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/113821_2Dzz_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/113940_6txL_3226688.png">
@@ -29,7 +28,7 @@
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/114141_y2Yo_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/114148_rvCq_3226688.png">
 <meta property="og:image" content="https://static.oschina.net/uploads/space/2017/0419/114215_obiK_3226688.png">
-<meta property="og:updated_time" content="2017-08-06T13:47:40.389Z">
+<meta property="og:updated_time" content="2017-08-06T13:52:55.353Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="学习Spring Cloud分布式架构--Zipkin（brave-okhttp）实现监控">
 <meta name="twitter:description" content="Zipkin 是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper 的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据，用来追踪微服务架构下的系统延时问题。">
@@ -441,7 +440,7 @@ public OkHttpClient okHttpClient(Brave brave){
 <pre><code>server.port=9090
 </code></pre><p>server3：</p>
 <p>服务名在ZipkinConfig 类中，修改服务名</p>
-<p><img src="https://static.oschina.net/uploads/space/2017/0419/113649_NFG3_3226688.png" alt=""></p>
+<p>修改过程和server2一样，只用更改服务明为server3 即可</p>
 <p>端口号修改如下：</p>
 <pre><code>server.port=9091
 </code></pre><p>server4：</p>
